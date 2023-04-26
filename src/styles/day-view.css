@@ -1,0 +1,31 @@
+:root {
+  --day-view-size: 200px;
+  --day-view-margin: 2px;
+  --day-view-bg-color: #173854;
+  --day-view-color: #37b7f0;
+
+  --day-view-container-padding: 2px;
+  --day-view-container-size: calc(
+    (var(--day-view-size) * 7) +
+      (var(--day-view-margin) * 2 * 7 + (var(--day-view-container-padding) * 2))
+  );
+}
+
+.day-view {
+  min-width: var(--day-view-size);
+  max-width: var(--day-view-size);
+  min-height: var(--day-view-size);
+  max-height: var(--day-view-size);
+  margin: var(--day-view-margin);
+
+  background-color: var(--day-view-bg-color);
+  color: var(--day-view-color);
+}
+
+.day-view-container {
+  min-width: var(--day-view-container-size);
+  max-width: var(--day-view-container-size);
+  padding: var(--day-view-container-padding);
+
+  background-color: var(--day-view-container-bg-color);
+}
