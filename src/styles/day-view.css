@@ -17,15 +17,10 @@
   min-height: var(--day-view-size);
   max-height: var(--day-view-size);
   margin: var(--day-view-margin);
-
-  background-color: var(--day-view-bg-color);
-  color: var(--day-view-color);
 }
 
 .day-view-container {
   min-width: var(--day-view-container-size);
   max-width: var(--day-view-container-size);
   padding: var(--day-view-container-padding);
-
-  background-color: var(--day-view-container-bg-color);
 }
