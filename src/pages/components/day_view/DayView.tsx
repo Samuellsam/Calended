@@ -23,7 +23,11 @@ const DayCalendarView: React.FC<{
       return defaultClass + " bg-red-300 text-red-700 hover:bg-red-200";
     }
 
-    return defaultClass + " bg-sky-900 text-sky-500 hover:bg-sky-200";
+    if (props.date == new Date().getDate()) {
+      return defaultClass + " bg-slate-300 text-slate-900 hover:bg-slate-100";
+    }
+
+    return defaultClass + " bg-sky-900 text-sky-500 hover:bg-sky-300";
   };
 
   return (
