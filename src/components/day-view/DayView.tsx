@@ -1,9 +1,13 @@
 import { Holiday } from "@/interfaces/Holiday";
 import HolidayBanner from "./HolidayBanner";
+import moment, { Moment } from "moment";
+import { isDateInMonth, isDateSame, todayMonth } from "@/util/DateUtil";
+import { MonthEnum } from "@/enums/MonthEnum";
 
 const DayCalendarView: React.FC<{
-  date: number;
+  date: Moment;
   holidays?: Holiday[];
+  calendarMonth: MonthEnum;
 }> = (props) => {
   const generateHoliday = () => {
     return (
@@ -17,22 +21,27 @@ const DayCalendarView: React.FC<{
   };
 
   const generateDayViewClassName = () => {
-    let defaultClass = "day-view rounded-lg hover:transition-all duration-150";
+    let defaultClass =
+      "day-view rounded-lg hover:transition-all duration-150 cursor-pointer";
 
     if (props.holidays && props.holidays.length > 1) {
       return defaultClass + " bg-red-300 text-red-700 hover:bg-red-200";
     }
 
-    if (props.date == new Date().getDate()) {
-      return defaultClass + " bg-slate-300 text-slate-900 hover:bg-slate-100";
+    if (isDateSame(props.date, moment())) {
+      return defaultClass + " bg-slate-100 text-slate-950 hover:bg-slate-100";
     }
 
-    return defaultClass + " bg-sky-900 text-sky-500 hover:bg-sky-300";
+    if (isDateInMonth(props.date, props.calendarMonth)) {
+      return defaultClass + " bg-sky-300 text-sky-950 hover:bg-sky-200";
+    }
+
+    return defaultClass + " bg-sky-950 text-sky-300 hover:bg-sky-800";
   };
 
   return (
     <div className={generateDayViewClassName()}>
-      <p className="font-bold w-min text-center m-3">{props.date}</p>
+      <p className="font-bold w-min text-center m-3">{props.date.date()}</p>
       {generateHoliday()}
     </div>
   );

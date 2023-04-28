@@ -1,43 +1,27 @@
-import DayView from "../components/day_view/DayView";
+import { firstDayOfMonth, lastDayOfMonth } from "@/util/DateUtil";
+import DayView from "../../components/day-view/DayView";
+import moment, { Moment } from "moment";
+import { MonthEnum } from "@/enums/MonthEnum";
 
 const HomePage: React.FC<{}> = () => {
   const generateDayCalendarItem = () => {
     const dayCalendarItem = [];
-    for (let i = 1; i <= 31; i++) {
+
+    const currDate: Moment = firstDayOfMonth(MonthEnum.JUNE, 2023);
+    const endDate: Moment = lastDayOfMonth(MonthEnum.JUNE, 2023);
+
+    while (currDate.isSameOrBefore(endDate)) {
       dayCalendarItem.push(
         <DayView
-          key={i}
-          date={i}
-          holidays={
-            i == 3
-              ? [
-                  {
-                    isFirst: true,
-                    isLast: true,
-                    from: new Date(),
-                    to: new Date(),
-                    name: "Christmas",
-                  },
-                  {
-                    isFirst: true,
-                    isLast: true,
-                    from: new Date(),
-                    to: new Date(),
-                    name: "Idul Fitri",
-                  },
-                  {
-                    isFirst: true,
-                    isLast: true,
-                    from: new Date(),
-                    to: new Date(),
-                    name: "Cuti Bersama",
-                  },
-                ]
-              : []
-          }
+          key={currDate.toString()}
+          date={moment(currDate)}
+          holidays={[]}
+          calendarMonth={MonthEnum.JUNE}
         />
       );
+      currDate.add(1, "days");
     }
+
     return dayCalendarItem;
   };
 
