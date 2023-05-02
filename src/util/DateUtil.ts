@@ -5,6 +5,8 @@ export const today = () => moment();
 
 export const todayMonth = () => moment().get("month");
 
+export const todayYear = () => moment().get("year");
+
 export const firstDayOfMonth = (month: MonthEnum, year: number) =>
   moment(moment(`${month + 1} ${year}`, "MM YYYY").startOf("months")).startOf(
     "weeks"
