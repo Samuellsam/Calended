@@ -8,9 +8,18 @@ export enum WfhTeamEnum {
 export const getWfoTeam = (wfhTeam: WfhTeamEnum) => {
   let wfo = "";
 
-  Object.values(WfhTeamEnum).forEach((element) => {
-    if (element != wfhTeam) wfo += element;
-  });
+  let step = Object.values(WfhTeamEnum).indexOf(wfhTeam);
+
+  if (step + 1 > 3) step = 0;
+
+  let size = Object.values(WfhTeamEnum).length;
+
+  for (let i = 0; i < size; i++, step++) {
+    if (Object.values(WfhTeamEnum)[step] === wfhTeam) continue;
+
+    if (step >= size) step = 0;
+    wfo += Object.values(WfhTeamEnum)[step];
+  }
 
   return wfo;
 };
