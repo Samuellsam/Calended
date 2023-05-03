@@ -1,8 +1,9 @@
 :root {
   --day-view-size: 120px;
   --day-view-margin: 2px;
-  --day-view-bg-color: #173854;
-  --day-view-color: #37b7f0;
+
+  --day-view-header-size: calc(var(--day-view-size) / 3);
+  --day-view-header-margin: 2px;
 
   --day-view-container-padding: 2px;
   --day-view-container-size: calc(
@@ -23,9 +24,25 @@
   user-select: none;
 }
 
+.day-view-header {
+  min-width: var(--day-view-size);
+  max-width: var(--day-view-size);
+
+  min-height: var(--day-view-header-size);
+  max-height: var(--day-view-header-size);
+
+  margin: var(--day-view-header-margin);
+
+  user-select: none;
+}
+
 .day-view-container {
   min-width: var(--day-view-container-size);
   max-width: var(--day-view-container-size);
 
   padding: var(--day-view-container-padding);
+}
+
+.wfo-text {
+  -webkit-text-stroke: 1px white;
 }
