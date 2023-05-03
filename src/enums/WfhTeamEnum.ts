@@ -7,17 +7,21 @@ export enum WfhTeamEnum {
 
 export const getWfoTeam = (wfhTeam: WfhTeamEnum) => {
   let wfo = "";
-  let step = Object.values(WfhTeamEnum).indexOf(wfhTeam);
-  let size = Object.values(WfhTeamEnum).length;
+  let currWfhTeam = wfhTeam;
 
-  if (step >= size) step = 0;
-
-  for (let i = 0; i < size; i++, step++) {
-    if (Object.values(WfhTeamEnum)[step] === wfhTeam) continue;
-
-    if (step >= size) step = 0;
-    wfo += Object.values(WfhTeamEnum)[step];
-  }
+  do {
+    currWfhTeam = getNextWfhTeam(currWfhTeam) as WfhTeamEnum;
+    wfo += currWfhTeam;
+  } while (wfo.length < Object.values(WfhTeamEnum).length - 1);
 
   return wfo;
+};
+
+export const getNextWfhTeam = (wfhTeam: WfhTeamEnum) => {
+  if (wfhTeam === WfhTeamEnum.A) return WfhTeamEnum.B;
+  if (wfhTeam === WfhTeamEnum.B) return WfhTeamEnum.C;
+  if (wfhTeam === WfhTeamEnum.C) return WfhTeamEnum.D;
+  if (wfhTeam === WfhTeamEnum.D) return WfhTeamEnum.A;
+
+  return undefined;
 };

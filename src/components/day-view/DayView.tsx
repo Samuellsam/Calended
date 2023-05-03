@@ -66,7 +66,7 @@ const DayCalendarView: React.FC<{
         );
       // return defaultClass + " bg-violet-300 text-slate-950";
 
-      return defaultClass + " bg-sky-300 text-sky-950 hover:bg-sky-200";
+      return defaultClass + " bg-sky-800 text-sky-400 hover:bg-sky-200";
     }
 
     return defaultClass + " bg-sky-950 text-sky-300 hover:bg-sky-800";

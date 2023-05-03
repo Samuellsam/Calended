@@ -1,6 +1,6 @@
-import { HolidayEnum } from "@/enums/HolidayEnum.js";
+import { HolidayEnum } from "@/enums/HolidayEnum";
 import { Holiday } from "@/interfaces/Holiday";
-import moment from "moment";
+import moment, { Moment } from "moment";
 
 const HOLIDAY_DATE_FORMAT = "DD-MM-YYYY";
 const holidays: Holiday[] = [
@@ -128,4 +128,10 @@ const holidays: Holiday[] = [
 
 export const getAllHolidays = (): Holiday[] => {
   return holidays;
+};
+
+export const getHolidaysByDate = (date: Moment) => {
+  return holidays.filter((holiday) =>
+    date.isBetween(holiday.from, holiday.to, undefined, "[]")
+  );
 };

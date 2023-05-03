@@ -11,9 +11,11 @@ import { useState } from "react";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
 import DayViewHeader from "../../components/day-view/DayViewHeader";
+import { getHolidaysByDate } from "@/services/HolidayService";
+import { getWfhTeamByDate } from "@/services/CalendarService";
 
 const HomePage: React.FC<{}> = () => {
-  const [month, setMonth] = useState<MonthEnum>(todayMonth());
+  const [month, setMonth] = useState<MonthEnum>(todayMonth() - 4);
   const [year, setYear] = useState<number>(todayYear());
 
   const generateDayCalendarItem = () => {
@@ -27,19 +29,9 @@ const HomePage: React.FC<{}> = () => {
         <DayView
           key={currDate.toString()}
           date={moment(currDate)}
-          holidays={[]}
+          holidays={getHolidaysByDate(currDate)}
           calendarMonth={month}
-          wfhTeam={
-            currDate.get("date") % 4 == 0
-              ? WfhTeamEnum.A
-              : currDate.get("date") % 4 == 1
-              ? WfhTeamEnum.B
-              : currDate.get("date") % 4 == 2
-              ? WfhTeamEnum.C
-              : currDate.get("date") % 4 == 3
-              ? WfhTeamEnum.D
-              : undefined
-          }
+          wfhTeam={getWfhTeamByDate(currDate)}
         />
       );
       currDate.add(1, "days");
