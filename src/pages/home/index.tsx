@@ -9,6 +9,8 @@ import moment, { Moment } from "moment";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { useState } from "react";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
+import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
+import DayViewHeader from "../../components/day-view/DayViewHeader";
 
 const HomePage: React.FC<{}> = () => {
   const [month, setMonth] = useState<MonthEnum>(todayMonth());
@@ -46,8 +48,21 @@ const HomePage: React.FC<{}> = () => {
     return dayCalendarItem;
   };
 
+  const generateDayHeader = () => {
+    return (
+      <>
+        {Object.values(DayHeaderEnum).map((header) => (
+          <DayViewHeader header={header} key={header} />
+        ))}
+      </>
+    );
+  };
+
   return (
     <div>
+      <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
+        {generateDayHeader()}
+      </div>
       <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
         {generateDayCalendarItem()}
       </div>

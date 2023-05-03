@@ -1,7 +1,9 @@
+import { HolidayEnum } from "@/enums/HolidayEnum.js";
+import { Moment } from "moment";
+
 export interface Holiday {
-    isFirst: boolean;
-    isLast: boolean;
-    name: string;
-    from: Date;
-    to: Date;
+  name: string;
+  from: Moment;
+  to: Moment;
+  type: HolidayEnum;
 }
