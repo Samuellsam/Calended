@@ -15,27 +15,25 @@ export const getWfhTeamByDate = (date: Moment) => {
   const holidayInThisDate: Holiday[] = getHolidaysByDate(date);
 
   if (
-    (holidayInThisDate && holidayInThisDate.length > 0) ||
+    holidayInThisDate.length > 0 ||
     date.isoWeekday() == 6 ||
-    date.isoWeekday() == 7
+    date.isoWeekday() == 7 ||
+    date.isBefore(baseWfhDate.date)
   )
     return undefined;
-  if (date.isBefore(baseWfhDate.date)) return undefined;
 
   let currDate: Moment = moment(baseWfhDate.date);
   let currWfh: WfhTeamEnum = baseWfhDate.wfhTeam;
 
   while (currDate.isBefore(date)) {
-    currDate.add(1, "days");
-
     if (
-      holidayInThisDate.length > 0 ||
-      currDate.isoWeekday() == 6 ||
-      currDate.isoWeekday() == 7
+      holidayInThisDate.length == 0 &&
+      currDate.isoWeekday() != 6 &&
+      currDate.isoWeekday() != 7
     )
-      continue;
+      currWfh = getNextWfhTeam(currWfh) as WfhTeamEnum;
 
-    currWfh = getNextWfhTeam(currWfh) as WfhTeamEnum;
+    currDate.add(1, "days");
   }
 
   return currWfh;

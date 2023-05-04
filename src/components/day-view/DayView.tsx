@@ -35,7 +35,11 @@ const DayCalendarView: React.FC<{
       "day-view relative rounded-lg hover:transition-all duration-150 cursor-pointer";
 
     if (props.holidays && props.holidays.length > 0)
-      return defaultClass + " bg-red-600 text-slate-100 hover:bg-red-500";
+      return (
+        defaultClass +
+        " bg-gradient-to-r from-red-300 to-red-500 text-slate-100 hover:bg-red-500"
+      );
+    // return defaultClass + " bg-red-600 text-slate-100 hover:bg-red-500";
 
     if (isDateSame(props.date, moment()))
       return defaultClass + " bg-slate-100 text-slate-950 hover:bg-slate-100";

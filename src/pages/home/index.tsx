@@ -8,7 +8,6 @@ import DayView from "../../components/day-view/DayView";
 import moment, { Moment } from "moment";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { useState } from "react";
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
 import DayViewHeader from "../../components/day-view/DayViewHeader";
 import { getHolidaysByDate } from "@/services/HolidayService";
