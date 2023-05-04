@@ -3,7 +3,7 @@ import HolidayBanner from "./HolidayBanner";
 import moment, { Moment } from "moment";
 import { isDateInMonth, isDateSame, todayMonth } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
-import WfoCover from "./WfhCover";
+import WfoCover from "./WfoCover";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 
 const DayCalendarView: React.FC<{
@@ -16,9 +16,9 @@ const DayCalendarView: React.FC<{
     if (!props.holidays) return <></>;
     return (
       <>
-        {props.holidays.map((h, idx) => (
+        {/* {props.holidays.map((h, idx) => (
           <HolidayBanner holiday={h} key={idx} />
-        ))}
+        ))} */}
       </>
     );
   };
@@ -37,12 +37,15 @@ const DayCalendarView: React.FC<{
     if (props.holidays && props.holidays.length > 0)
       return (
         defaultClass +
-        " bg-gradient-to-r from-red-300 to-red-500 text-slate-100 hover:bg-red-500"
+        " bg-gradient-to-r from-red-500 to-red-800 text-slate-100 border-dashed border-2 border-slate-50"
       );
     // return defaultClass + " bg-red-600 text-slate-100 hover:bg-red-500";
 
-    if (isDateSame(props.date, moment()))
-      return defaultClass + " bg-slate-100 text-slate-950 hover:bg-slate-100";
+    if (
+      isDateSame(props.date, moment()) &&
+      isDateInMonth(props.date, props.calendarMonth)
+    )
+      return defaultClass + " bg-slate-100 text-slate-950";
 
     if (isDateInMonth(props.date, props.calendarMonth)) {
       if (props.wfhTeam === WfhTeamEnum.A)

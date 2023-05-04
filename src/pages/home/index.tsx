@@ -14,7 +14,7 @@ import { getHolidaysByDate } from "@/services/HolidayService";
 import { getWfhTeamByDate } from "@/services/CalendarService";
 
 const HomePage: React.FC<{}> = () => {
-  const [month, setMonth] = useState<MonthEnum>(todayMonth() - 4);
+  const [month, setMonth] = useState<MonthEnum>(todayMonth());
   const [year, setYear] = useState<number>(todayYear());
 
   const generateDayCalendarItem = () => {

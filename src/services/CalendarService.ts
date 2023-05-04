@@ -1,21 +1,18 @@
 import moment, { Moment } from "moment";
-import { getHolidaysByDate } from "./HolidayService";
-import { Holiday } from "@/interfaces/Holiday";
+import { isHoliday } from "./HolidayService";
 import { WfhTeamEnum, getNextWfhTeam } from "@/enums/WfhTeamEnum";
 
 const baseWfhDate: {
   date: Moment;
   wfhTeam: WfhTeamEnum;
 } = {
-  date: moment("02-01-2023", "DD MM YYYY"),
+  date: moment("02-01-2023", "DD-MM-YYYY"),
   wfhTeam: WfhTeamEnum.C,
 };
 
 export const getWfhTeamByDate = (date: Moment) => {
-  const holidayInThisDate: Holiday[] = getHolidaysByDate(date);
-
   if (
-    holidayInThisDate.length > 0 ||
+    isHoliday(date) ||
     date.isoWeekday() == 6 ||
     date.isoWeekday() == 7 ||
     date.isBefore(baseWfhDate.date)
@@ -27,7 +24,7 @@ export const getWfhTeamByDate = (date: Moment) => {
 
   while (currDate.isBefore(date)) {
     if (
-      holidayInThisDate.length == 0 &&
+      !isHoliday(currDate) &&
       currDate.isoWeekday() != 6 &&
       currDate.isoWeekday() != 7
     )

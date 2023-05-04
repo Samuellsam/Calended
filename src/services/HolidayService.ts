@@ -132,6 +132,14 @@ export const getAllHolidays = (): Holiday[] => {
 
 export const getHolidaysByDate = (date: Moment) => {
   return holidays.filter((holiday) =>
-    date.isBetween(holiday.from, holiday.to, undefined, "[]")
+    date.isBetween(holiday.from, holiday.to, "days", "[]")
+  );
+};
+
+export const isHoliday = (date: Moment): boolean => {
+  return (
+    holidays.filter((holiday) =>
+      date.isBetween(holiday.from, holiday.to, "days", "[]")
+    ).length > 0
   );
 };
