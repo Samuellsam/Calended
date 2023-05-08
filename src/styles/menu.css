@@ -1,0 +1,38 @@
+:root {
+  --menu-item-size: 150px;
+  --menu-item-size-margin: 5px;
+
+  --menu-container-padding: 20px;
+
+  --menu-width: calc(
+    (var(--menu-item-size) * 3) + (var(--menu-item-size-margin) * 6) +
+      (var(--menu-container-padding) * 2)
+  );
+}
+
+.menu-container {
+  min-height: 100%;
+  max-height: 100%;
+
+  min-width: var(--menu-width);
+  max-width: var(--menu-width);
+
+  padding: var(--menu-container-padding);
+}
+
+.menu-item {
+  min-height: var(--menu-item-size);
+  max-height: var(--menu-item-size);
+
+  min-width: var(--menu-item-size);
+  max-width: var(--menu-item-size);
+
+  margin: var(--menu-item-size-margin);
+
+  user-select: none;
+}
+
+.menu-text {
+  min-width: var(--menu-item-size);
+  max-width: var(--menu-item-size);
+}

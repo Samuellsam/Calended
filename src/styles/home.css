@@ -1,3 +1,6 @@
+@import "./day-view.css";
+@import "./menu.css";
+
 html,
 body {
   background-color: var(--bg-color);

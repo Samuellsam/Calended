@@ -32,17 +32,17 @@ const DayView: React.FC<{
     if (isHoliday(props.date))
       return (
         defaultClass +
-        " bg-gradient-to-r from-red-500 to-red-800 text-slate-100 border-dashed border-2 border-slate-50"
+        " bg-gradient-to-r from-red-400 to-red-800 text-slate-100 border-dashed border-2 border-slate-50"
       );
 
-    if (isToday(props.date))
-      return defaultClass + " bg-slate-100 text-slate-950";
+    // if (isToday(props.date))
+    //   return defaultClass + " bg-slate-100 text-slate-950";
 
     if (isDateInMonth(props.date, props.calendarMonth)) {
       if (props.wfhTeam === WfhTeamEnum.A)
         return (
           defaultClass +
-          " bg-gradient-to-r from-amber-200 to-amber-500 text-slate-950"
+          " bg-gradient-to-r from-amber-100 to-amber-300 text-slate-950"
         );
 
       if (props.wfhTeam === WfhTeamEnum.B)
@@ -54,7 +54,7 @@ const DayView: React.FC<{
       if (props.wfhTeam === WfhTeamEnum.C)
         return (
           defaultClass +
-          " bg-gradient-to-r from-orange-200 to-orange-500 text-slate-950"
+          " bg-gradient-to-r from-orange-300 to-orange-600 text-slate-950"
         );
 
       if (props.wfhTeam === WfhTeamEnum.D)
