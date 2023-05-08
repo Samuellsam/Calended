@@ -15,6 +15,8 @@
           (var(--day-view-container-padding) * 2)
       )
   );
+
+  --today-sign-size: calc(var(--day-view-size) - 5px);
 }
 
 .day-view {
@@ -53,11 +55,11 @@
 }
 
 .today-sign {
-  min-width: var(--day-view-size);
-  max-width: var(--day-view-size);
+  min-width: var(--today-sign-size);
+  max-width: var(--today-sign-size);
 
-  min-height: var(--day-view-size);
-  max-height: var(--day-view-size);
+  min-height: var(--today-sign-size);
+  max-height: var(--today-sign-size);
 }
 
 .today-text {
