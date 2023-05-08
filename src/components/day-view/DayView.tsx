@@ -1,32 +1,26 @@
 import { Holiday } from "@/interfaces/Holiday";
-import HolidayBanner from "./HolidayBanner";
-import moment, { Moment } from "moment";
-import { isDateInMonth, isDateSame, today, todayMonth } from "@/util/DateUtil";
+import { Moment } from "moment";
+import {
+  isDateInMonth,
+  isDateSame,
+  isToday,
+  today,
+  todayMonth,
+} from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import WfoCover from "./WfoCover";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import TodaySign from "./TodaySign";
+import { isHoliday } from "@/services/HolidayService";
 
-const DayCalendarView: React.FC<{
+const DayView: React.FC<{
   date: Moment;
   holidays?: Holiday[];
   calendarMonth: MonthEnum;
   wfhTeam?: WfhTeamEnum;
 }> = (props) => {
-  const generateHoliday = () => {
-    if (!props.holidays) return <></>;
-    return (
-      <>
-        {/* {props.holidays.map((h, idx) => (
-          <HolidayBanner holiday={h} key={idx} />
-        ))} */}
-      </>
-    );
-  };
-
   const generateWfoTeam = () => {
-    if ((props.holidays && props.holidays.length > 0) || !props.wfhTeam)
-      return <></>;
+    if (isHoliday(props.date) || !props.wfhTeam) return <></>;
 
     return <WfoCover wfhTeam={props.wfhTeam} />;
   };
@@ -35,14 +29,13 @@ const DayCalendarView: React.FC<{
     let defaultClass =
       "day-view relative rounded-lg hover:transition-all duration-150 cursor-pointer";
 
-    if (props.holidays && props.holidays.length > 0)
+    if (isHoliday(props.date))
       return (
         defaultClass +
         " bg-gradient-to-r from-red-500 to-red-800 text-slate-100 border-dashed border-2 border-slate-50"
       );
-    // return defaultClass + " bg-red-600 text-slate-100 hover:bg-red-500";
 
-    if (isDateSame(props.date, today()))
+    if (isToday(props.date))
       return defaultClass + " bg-slate-100 text-slate-950";
 
     if (isDateInMonth(props.date, props.calendarMonth)) {
@@ -81,9 +74,8 @@ const DayCalendarView: React.FC<{
       {isDateSame(props.date, today()) && <TodaySign />}
       <p className="font-bold m-3">{props.date.date()}</p>
       {generateWfoTeam()}
-      {generateHoliday()}
     </div>
   );
 };
 
-export default DayCalendarView;
+export default DayView;
