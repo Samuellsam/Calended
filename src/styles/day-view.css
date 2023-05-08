@@ -1,4 +1,6 @@
 :root {
+  --max-col: 7;
+
   --day-view-size: 120px;
   --day-view-margin: 2px;
 
@@ -7,8 +9,11 @@
 
   --day-view-container-padding: 2px;
   --day-view-container-size: calc(
-    (var(--day-view-size) * 7) +
-      (var(--day-view-margin) * 2 * 7 + (var(--day-view-container-padding) * 2))
+    (var(--day-view-size) * var(--max-col)) +
+      (
+        var(--day-view-margin) * 2 * var(--max-col) +
+          (var(--day-view-container-padding) * 2)
+      )
   );
 }
 
