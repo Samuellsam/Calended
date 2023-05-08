@@ -51,3 +51,15 @@
 .wfo-text {
   -webkit-text-stroke: 1px white;
 }
+
+.today-sign {
+  min-width: var(--day-view-size);
+  max-width: var(--day-view-size);
+
+  min-height: var(--day-view-size);
+  max-height: var(--day-view-size);
+}
+
+.today-text {
+  right: 0;
+}

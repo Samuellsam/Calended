@@ -1,10 +1,11 @@
 import { Holiday } from "@/interfaces/Holiday";
 import HolidayBanner from "./HolidayBanner";
 import moment, { Moment } from "moment";
-import { isDateInMonth, isDateSame, todayMonth } from "@/util/DateUtil";
+import { isDateInMonth, isDateSame, today, todayMonth } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import WfoCover from "./WfoCover";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
+import TodaySign from "./TodaySign";
 
 const DayCalendarView: React.FC<{
   date: Moment;
@@ -41,37 +42,33 @@ const DayCalendarView: React.FC<{
       );
     // return defaultClass + " bg-red-600 text-slate-100 hover:bg-red-500";
 
-    if (
-      isDateSame(props.date, moment()) &&
-      isDateInMonth(props.date, props.calendarMonth)
-    )
+    if (isDateSame(props.date, today()))
       return defaultClass + " bg-slate-100 text-slate-950";
 
     if (isDateInMonth(props.date, props.calendarMonth)) {
       if (props.wfhTeam === WfhTeamEnum.A)
         return (
           defaultClass +
-          " bg-gradient-to-r from-amber-300 to-amber-500 text-slate-950"
+          " bg-gradient-to-r from-amber-200 to-amber-500 text-slate-950"
         );
-      // return defaultClass + " bg-amber-300 text-slate-950";
+
       if (props.wfhTeam === WfhTeamEnum.B)
         return (
           defaultClass +
-          " bg-gradient-to-r from-lime-300 to-lime-500 text-slate-950"
+          " bg-gradient-to-r from-lime-200 to-lime-500 text-slate-950"
         );
-      // return defaultClass + " bg-lime-300 text-slate-950";
+
       if (props.wfhTeam === WfhTeamEnum.C)
         return (
           defaultClass +
-          " bg-gradient-to-r from-orange-300 to-orange-500 text-slate-950"
+          " bg-gradient-to-r from-orange-200 to-orange-500 text-slate-950"
         );
-      // return defaultClass + " bg-orange-300 text-slate-950";
+
       if (props.wfhTeam === WfhTeamEnum.D)
         return (
           defaultClass +
-          " bg-gradient-to-r from-cyan-300 to-cyan-500 text-slate-950"
+          " bg-gradient-to-r from-cyan-200 to-cyan-500 text-slate-950"
         );
-      // return defaultClass + " bg-violet-300 text-slate-950";
 
       return defaultClass + " bg-sky-800 text-sky-400 hover:bg-sky-200";
     }
@@ -81,6 +78,7 @@ const DayCalendarView: React.FC<{
 
   return (
     <div className={generateDayViewClassName()}>
+      {isDateSame(props.date, today()) && <TodaySign />}
       <p className="font-bold m-3">{props.date.date()}</p>
       {generateWfoTeam()}
       {generateHoliday()}
