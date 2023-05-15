@@ -18,6 +18,8 @@
   max-width: var(--menu-width);
 
   padding: var(--menu-container-padding);
+
+  user-select: none;
 }
 
 .menu-item {
@@ -35,4 +37,14 @@
 .menu-text {
   min-width: var(--menu-item-size);
   max-width: var(--menu-item-size);
+}
+
+.menu-hide {
+  right: calc(-1 * var(--menu-width));
+  display: none;
+}
+
+.menu-show {
+  right: 0;
+  display: block;
 }
