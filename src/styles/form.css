@@ -1,0 +1,7 @@
+.calended-input-text:focus {
+  outline: none;
+}
+
+select {
+  -webkit-appearance: none;
+}

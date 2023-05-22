@@ -1,7 +1,7 @@
 import Logo from "@/components/Logo";
 import Calendar from "@/components/Calendar";
 import Menu from "@/components/menu/Menu";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 const HomePage: React.FC<{}> = () => {
   return (

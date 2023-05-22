@@ -1,4 +1,4 @@
-import { HolidayEnum } from "@/enums/HolidayEnum.js";
+import { HolidayEnum } from "@/enums/HolidayEnum";
 import { Moment } from "moment";
 
 export interface Holiday {

@@ -1,10 +1,17 @@
-import MenuItem from "./MenuItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { MenuEnum } from "@/enums/MenuEnum";
+import MainMenu from "./MainMenu";
+import TeamMenu from "./TeamMenu";
+import OffDayMenu from "./OffDayMenu";
+import MemberMenu from "./MemberMenu";
+import BaseDateMenu from "./BaseDateMenu";
+import ExportMenu from "./ExportMenu";
 
 const Menu: React.FC<{}> = () => {
   const [isShowed, setIsShowed] = useState<boolean>(false);
+  const [currMenu, setCurrMenu] = useState<MenuEnum>(MenuEnum.OFF_DAY);
 
   const getMenuClassName = () => {
     const defaultClassName =
@@ -19,6 +26,17 @@ const Menu: React.FC<{}> = () => {
 
   const openMenu = () => setIsShowed(true);
 
+  const renderMenu = () => {
+    if (currMenu == MenuEnum.MAIN_MENU) return <MainMenu />;
+    if (currMenu == MenuEnum.TEAM) return <TeamMenu />;
+    if (currMenu == MenuEnum.OFF_DAY) return <OffDayMenu />;
+    if (currMenu == MenuEnum.MEMBER) return <MemberMenu />;
+    if (currMenu == MenuEnum.BASE_DATE) return <BaseDateMenu />;
+    if (currMenu == MenuEnum.EXPORT) return <ExportMenu />;
+
+    return <></>;
+  };
+
   return (
     <>
       {isShowed ? (
@@ -29,21 +47,12 @@ const Menu: React.FC<{}> = () => {
             size="xl"
             onClick={() => closeMenu()}
           />
-          <div className="my-auto">
-            <p className="text-2xl font-bold mx-auto w-max my-3">-MAIN MENU-</p>
-            <div className="grid grid-cols-3">
-              <MenuItem name="TEAM's" />
-              <MenuItem name="OFF DAY's" />
-              <MenuItem name="MEMBER's" />
-              <MenuItem name="BASE DATE" />
-              {/* <MenuItem name="EXPORT" /> */}
-            </div>
-          </div>
+          <div className="my-auto">{renderMenu()}</div>
         </div>
       ) : (
         <FontAwesomeIcon
           icon={faBars}
-          className="fixed top-7 right-7 text-slate-100 cursor-pointer"
+          className="fixed top-7 right-7 text-slate-100 hover:text-slate-400 cursor-pointer"
           size="xl"
           onClick={() => openMenu()}
         />
