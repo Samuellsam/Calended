@@ -30,7 +30,7 @@ const OffDayMenu: React.FC<{}> = () => {
           />
         </div>
         <CalendedSelect header="OFF DAY TYPE" mandatory={true} />
-        <CalendedSubmitButton value="ADD" />
+        <CalendedSubmitButton value="ADD OFF DAY" />
       </form>
     </div>
   );
