@@ -4,6 +4,7 @@ const CalendedTextInput: React.FC<{
   placeholder?: string;
   header?: string;
   mandatory?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }> = (props) => {
   return (
     <div className="w-full">
@@ -14,6 +15,7 @@ const CalendedTextInput: React.FC<{
       <input
         type="text"
         className="w-full rounded-lg p-2 shadow-md calended-input-text mb-2"
+        onChange={props.onChange}
       />
     </div>
   );
