@@ -11,6 +11,7 @@ const CalendedSelect: React.FC<{
   mandatory?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   options: DropdownModel[];
+  className?: string;
 }> = (props) => {
   return (
     <div className="w-full">
@@ -18,11 +19,11 @@ const CalendedSelect: React.FC<{
         <CalendedInputHeader mandatory={props.mandatory} txt={props.header} />
       )}
       <select
-        className="w-full rounded-lg p-2 shadow-md calended-input-text mb-2 px-2"
+        className={`w-full rounded-lg p-2 shadow-md calended-input-text mb-2 px-2 ${props.className}`}
         onChange={props.onChange}
       >
         {props.options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option className="rounded" key={option.value} value={option.value}>
             {option.name}
           </option>
         ))}

@@ -7,8 +7,8 @@ const HomePage: React.FC<{}> = () => {
   return (
     <div className="relative">
       <div>
-        {/* <Logo />
-        <Calendar /> */}
+        <Logo />
+        <Calendar />
       </div>
       <Menu />
     </div>

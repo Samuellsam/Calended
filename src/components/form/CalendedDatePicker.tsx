@@ -7,6 +7,7 @@ const CalendedDatePicker: React.FC<{
   header?: string;
   mandatory?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }> = (props) => {
   return (
     <div className="w-full">
@@ -15,7 +16,7 @@ const CalendedDatePicker: React.FC<{
       )}
       <input
         type="date"
-        className="w-full rounded-lg p-2 shadow-md calended-input-text mb-2"
+        className={`w-full rounded-lg p-2 shadow-md calended-input-text mb-2 ${props.className}`}
         placeholder={props.placeholder}
         onChange={props.onChange}
       />

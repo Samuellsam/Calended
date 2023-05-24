@@ -6,7 +6,6 @@ const MainMenu: React.FC<{
 }> = (props) => {
   return (
     <>
-      <p className="text-2xl font-bold mx-auto w-max my-3">-MAIN MENU-</p>
       <div className="grid grid-cols-3">
         <MenuItem
           name="TEAM's"
@@ -28,7 +27,10 @@ const MainMenu: React.FC<{
           name="BIRTHDAY's"
           onClick={() => props.onMenuSelect(MenuEnum.BIRTHDAY)}
         />
-        {/* <MenuItem name="EXPORT" onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}/> */}
+        <MenuItem
+          name="EXPORT"
+          onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}
+        />
       </div>
     </>
   );

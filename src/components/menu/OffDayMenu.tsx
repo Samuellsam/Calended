@@ -36,67 +36,64 @@ const OffDayMenu: React.FC<{
   };
 
   return (
-    <div className="mt-20">
-      <form
-        className="flex flex-column flex-wrap"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <CalendedTextInput
-          header="OFF DAY NAME"
-          placeholder="Off day name"
+    <form
+      className="calended-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <CalendedTextInput
+        header="Off Day Name"
+        mandatory={true}
+        onChange={(e) =>
+          updateForm(e.target.value ? e.target.value : null, "name")
+        }
+      />
+      <div className="grid grid-cols-2 gap-2 w-full">
+        <CalendedDatePicker
+          header="Start Date"
+          placeholder="Start date"
           mandatory={true}
           onChange={(e) =>
-            updateForm(e.target.value ? e.target.value : null, "name")
+            updateForm(
+              e.target.value
+                ? moment(e.target.value, CALENDED_DATE_PICKER_FORMAT)
+                : null,
+              "startDate"
+            )
           }
         />
-        <div className="grid grid-cols-2 gap-2 w-full">
-          <CalendedDatePicker
-            header="START DATE"
-            placeholder="Start date"
-            mandatory={true}
-            onChange={(e) =>
-              updateForm(
-                e.target.value
-                  ? moment(e.target.value, CALENDED_DATE_PICKER_FORMAT)
-                  : null,
-                "startDate"
-              )
-            }
-          />
-          <CalendedDatePicker
-            header="END DATE"
-            placeholder="End date"
-            mandatory={true}
-            onChange={(e) =>
-              updateForm(
-                e.target.value
-                  ? moment(e.target.value, CALENDED_DATE_PICKER_FORMAT)
-                  : null,
-                "endDate"
-              )
-            }
-          />
-        </div>
-        <CalendedSelect
-          header="OFF DAY TYPE"
+        <CalendedDatePicker
+          header="End Date"
+          placeholder="End date"
           mandatory={true}
-          onChange={(e) => updateForm(e.target.value, "offDayType")}
-          options={[
-            {
-              name: "HOLIDAY",
-              value: HolidayEnum.HOLIDAY,
-            },
-            {
-              name: "MASS LEAVE",
-              value: HolidayEnum.MASS_LEAVE,
-            },
-          ]}
+          onChange={(e) =>
+            updateForm(
+              e.target.value
+                ? moment(e.target.value, CALENDED_DATE_PICKER_FORMAT)
+                : null,
+              "endDate"
+            )
+          }
         />
-        <CalendedSubmitButton value="ADD OFF DAY" />
-      </form>
-    </div>
+      </div>
+      <CalendedSelect
+        header="Off Day Type"
+        mandatory={true}
+        onChange={(e) => updateForm(e.target.value, "offDayType")}
+        options={[
+          {
+            name: "Holiday",
+            value: HolidayEnum.HOLIDAY,
+          },
+          {
+            name: "Mass Leave",
+            value: HolidayEnum.MASS_LEAVE,
+          },
+        ]}
+      />
+      <CalendedSubmitButton value="Add Off Day" />
+    </form>
   );
 };
 

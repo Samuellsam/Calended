@@ -22,7 +22,7 @@ const Menu: React.FC<{}> = () => {
 
   const getMenuClassName = () => {
     const defaultClassName =
-      "fixed top-0 right-0 flex bg-slate-100 menu-container shadow-lg";
+      "fixed top-0 right-0 flex bg-slate-800 menu-container";
 
     if (isShowed) return defaultClassName + " menu-show";
 
@@ -30,14 +30,10 @@ const Menu: React.FC<{}> = () => {
   };
 
   const closeMenu = () => {
-    setMenuStack([]);
-
     setIsShowed(false);
   };
 
   const openMenu = () => {
-    setMenuStack([]);
-
     setIsShowed(true);
   };
 
@@ -74,24 +70,26 @@ const Menu: React.FC<{}> = () => {
     <>
       {isShowed ? (
         <div className={getMenuClassName()}>
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            className="ml-1 hover:text-slate-400 cursor-pointer"
-            size="xl"
-            onClick={() => backMenu()}
-          />
+          {currMenu !== MenuEnum.MAIN_MENU && (
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              className="ml-1 text-slate-100 cursor-pointer"
+              size="xl"
+              onClick={() => backMenu()}
+            />
+          )}
           <FontAwesomeIcon
             icon={faXmark}
-            className="fixed right-7 hover:text-slate-400 cursor-pointer"
+            className="fixed right-7 text-slate-100 cursor-pointer"
             size="xl"
             onClick={() => closeMenu()}
           />
-          <div className="my-auto">{renderMenu()}</div>
+          <div className="my-auto mt-10 p-2 rounded-lg">{renderMenu()}</div>
         </div>
       ) : (
         <FontAwesomeIcon
           icon={faBars}
-          className="fixed top-7 right-7 text-slate-100 hover:text-slate-400 cursor-pointer"
+          className="fixed top-5 right-7 text-slate-100 hover:text-slate-100 cursor-pointer"
           size="xl"
           onClick={() => openMenu()}
         />

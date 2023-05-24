@@ -1,8 +1,8 @@
 :root {
-  --menu-item-size: 150px;
-  --menu-item-size-margin: 5px;
+  --menu-item-size: 130px;
+  --menu-item-size-margin: 8px;
 
-  --menu-container-padding: 20px;
+  --menu-container-padding: 16px;
 
   --menu-width: calc(
     (var(--menu-item-size) * 3) + (var(--menu-item-size-margin) * 6) +
@@ -47,4 +47,8 @@
 .menu-show {
   right: 0;
   display: block;
+}
+
+.menu-item-text {
+  font-size: 14px;
 }
