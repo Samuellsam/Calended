@@ -1,12 +1,12 @@
 import moment, { Moment } from "moment";
-import { isHoliday } from "./HolidayService";
+import { HOLIDAY_DATE_FORMAT, isHoliday } from "./HolidayService";
 import { WfhTeamEnum, getNextWfhTeam } from "@/enums/WfhTeamEnum";
 
 const baseWfhDate: {
   date: Moment;
   wfhTeam: WfhTeamEnum;
 } = {
-  date: moment("02-01-2023", "DD-MM-YYYY"),
+  date: moment("02-01-2023", HOLIDAY_DATE_FORMAT),
   wfhTeam: WfhTeamEnum.C,
 };
 

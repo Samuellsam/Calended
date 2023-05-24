@@ -1,15 +1,34 @@
+import { MenuEnum } from "@/enums/MenuEnum";
 import MenuItem from "./MenuItem";
 
-const MainMenu: React.FC<{}> = () => {
+const MainMenu: React.FC<{
+  onMenuSelect: (menu: MenuEnum) => void;
+}> = (props) => {
   return (
     <>
       <p className="text-2xl font-bold mx-auto w-max my-3">-MAIN MENU-</p>
       <div className="grid grid-cols-3">
-        <MenuItem name="TEAM's" />
-        <MenuItem name="OFF DAY's" />
-        <MenuItem name="MEMBER's" />
-        <MenuItem name="BASE DATE" />
-        {/* <MenuItem name="EXPORT" /> */}
+        <MenuItem
+          name="TEAM's"
+          onClick={() => props.onMenuSelect(MenuEnum.TEAM)}
+        />
+        <MenuItem
+          name="OFF DAY's"
+          onClick={() => props.onMenuSelect(MenuEnum.OFF_DAY)}
+        />
+        <MenuItem
+          name="MEMBER's"
+          onClick={() => props.onMenuSelect(MenuEnum.MEMBER)}
+        />
+        <MenuItem
+          name="BASE DATE"
+          onClick={() => props.onMenuSelect(MenuEnum.BASE_DATE)}
+        />
+        <MenuItem
+          name="BIRTHDAY's"
+          onClick={() => props.onMenuSelect(MenuEnum.BIRTHDAY)}
+        />
+        {/* <MenuItem name="EXPORT" onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}/> */}
       </div>
     </>
   );

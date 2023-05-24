@@ -1,7 +1,7 @@
-const MemberMenu: React.FC<{
+const BirthDayMenu: React.FC<{
   onBack?: () => void;
 }> = () => {
   return <div></div>;
 };
 
-export default MemberMenu;
+export default BirthDayMenu;

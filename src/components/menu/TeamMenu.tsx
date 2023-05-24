@@ -1,4 +1,6 @@
-const TeamMenu: React.FC<{}> = () => {
+const TeamMenu: React.FC<{
+  onBack?: () => void;
+}> = () => {
   return <div></div>;
 };
 

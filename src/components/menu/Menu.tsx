@@ -1,6 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import {
+  faXmark,
+  faBars,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import { MenuEnum } from "@/enums/MenuEnum";
 import MainMenu from "./MainMenu";
 import TeamMenu from "./TeamMenu";
@@ -8,10 +12,13 @@ import OffDayMenu from "./OffDayMenu";
 import MemberMenu from "./MemberMenu";
 import BaseDateMenu from "./BaseDateMenu";
 import ExportMenu from "./ExportMenu";
+import BirthDayMenu from "./BirthdayMenu";
+import { log } from "console";
 
 const Menu: React.FC<{}> = () => {
   const [isShowed, setIsShowed] = useState<boolean>(false);
-  const [currMenu, setCurrMenu] = useState<MenuEnum>(MenuEnum.OFF_DAY);
+  const [currMenu, setCurrMenu] = useState<MenuEnum>(MenuEnum.MAIN_MENU);
+  const [menuStack, setMenuStack] = useState<MenuEnum[]>([]);
 
   const getMenuClassName = () => {
     const defaultClassName =
@@ -22,17 +29,43 @@ const Menu: React.FC<{}> = () => {
     return defaultClassName + " menu-hide";
   };
 
-  const closeMenu = () => setIsShowed(false);
+  const closeMenu = () => {
+    setMenuStack([]);
 
-  const openMenu = () => setIsShowed(true);
+    setIsShowed(false);
+  };
+
+  const openMenu = () => {
+    setMenuStack([]);
+
+    setIsShowed(true);
+  };
+
+  const backMenu = () => {
+    menuStack.pop();
+
+    setCurrMenu(menuStack[menuStack.length - 1] ?? MenuEnum.MAIN_MENU);
+    setMenuStack(menuStack);
+  };
+
+  const changeMenu = (menu: MenuEnum) => {
+    menuStack.push(menu);
+
+    setCurrMenu(menu);
+    setMenuStack(menuStack);
+  };
 
   const renderMenu = () => {
-    if (currMenu == MenuEnum.MAIN_MENU) return <MainMenu />;
-    if (currMenu == MenuEnum.TEAM) return <TeamMenu />;
-    if (currMenu == MenuEnum.OFF_DAY) return <OffDayMenu />;
-    if (currMenu == MenuEnum.MEMBER) return <MemberMenu />;
-    if (currMenu == MenuEnum.BASE_DATE) return <BaseDateMenu />;
-    if (currMenu == MenuEnum.EXPORT) return <ExportMenu />;
+    if (currMenu == MenuEnum.MAIN_MENU)
+      return <MainMenu onMenuSelect={(menu) => changeMenu(menu)} />;
+    if (currMenu == MenuEnum.TEAM) return <TeamMenu onBack={backMenu} />;
+    if (currMenu == MenuEnum.OFF_DAY) return <OffDayMenu onBack={backMenu} />;
+    if (currMenu == MenuEnum.MEMBER) return <MemberMenu onBack={backMenu} />;
+    if (currMenu == MenuEnum.BASE_DATE)
+      return <BaseDateMenu onBack={backMenu} />;
+    if (currMenu == MenuEnum.BIRTHDAY)
+      return <BirthDayMenu onBack={backMenu} />;
+    if (currMenu == MenuEnum.EXPORT) return <ExportMenu onBack={backMenu} />;
 
     return <></>;
   };
@@ -42,8 +75,14 @@ const Menu: React.FC<{}> = () => {
       {isShowed ? (
         <div className={getMenuClassName()}>
           <FontAwesomeIcon
+            icon={faArrowLeft}
+            className="ml-1 hover:text-slate-400 cursor-pointer"
+            size="xl"
+            onClick={() => backMenu()}
+          />
+          <FontAwesomeIcon
             icon={faXmark}
-            className="fixed top-7 right-7 hover:text-slate-400 cursor-pointer"
+            className="fixed right-7 hover:text-slate-400 cursor-pointer"
             size="xl"
             onClick={() => closeMenu()}
           />

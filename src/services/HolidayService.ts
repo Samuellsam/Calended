@@ -2,7 +2,8 @@ import { HolidayEnum } from "@/enums/HolidayEnum";
 import { Holiday } from "@/interfaces/Holiday";
 import moment, { Moment } from "moment";
 
-const HOLIDAY_DATE_FORMAT = "DD-MM-YYYY";
+export const HOLIDAY_DATE_FORMAT = "DD-MM-YYYY";
+
 const holidays: Holiday[] = [
   {
     from: moment("01-01-2023", HOLIDAY_DATE_FORMAT),

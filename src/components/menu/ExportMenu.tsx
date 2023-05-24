@@ -1,4 +1,6 @@
-const ExportMenu: React.FC<{}> = () => {
+const ExportMenu: React.FC<{
+  onBack?: () => void;
+}> = () => {
   return <div></div>;
 };
 

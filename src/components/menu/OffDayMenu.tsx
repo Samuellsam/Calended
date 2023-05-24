@@ -1,5 +1,7 @@
 import moment, { Moment } from "moment";
-import CalendedDatePicker from "../form/CalendedDatePicker";
+import CalendedDatePicker, {
+  CALENDED_DATE_PICKER_FORMAT,
+} from "../form/CalendedDatePicker";
 import CalendedSelect from "../form/CalendedSelect";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import CalendedTextInput from "../form/CalendedTextInput";
@@ -13,17 +15,15 @@ interface OffDayCreateForm {
   offDayType: HolidayEnum | null;
 }
 
-const OffDayMenu: React.FC<{}> = () => {
+const OffDayMenu: React.FC<{
+  onBack?: () => void;
+}> = () => {
   const [offDayCreateForm, setOffDayCreateForm] = useState<OffDayCreateForm>({
     name: null,
     startDate: null,
     endDate: null,
     offDayType: null,
   });
-
-  useEffect(() => {
-    console.log(offDayCreateForm);
-  }, [offDayCreateForm]);
 
   const updateForm = (
     newValue: string | null | Moment | HolidayEnum,
@@ -47,7 +47,9 @@ const OffDayMenu: React.FC<{}> = () => {
           header="OFF DAY NAME"
           placeholder="Off day name"
           mandatory={true}
-          onChange={(e) => updateForm(e.target.value, "name")}
+          onChange={(e) =>
+            updateForm(e.target.value ? e.target.value : null, "name")
+          }
         />
         <div className="grid grid-cols-2 gap-2 w-full">
           <CalendedDatePicker
@@ -55,7 +57,12 @@ const OffDayMenu: React.FC<{}> = () => {
             placeholder="Start date"
             mandatory={true}
             onChange={(e) =>
-              updateForm(moment(e.target.value, "yyyy-mm-dd"), "startDate")
+              updateForm(
+                e.target.value
+                  ? moment(e.target.value, CALENDED_DATE_PICKER_FORMAT)
+                  : null,
+                "startDate"
+              )
             }
           />
           <CalendedDatePicker
@@ -63,7 +70,12 @@ const OffDayMenu: React.FC<{}> = () => {
             placeholder="End date"
             mandatory={true}
             onChange={(e) =>
-              updateForm(moment(e.target.value, "yyyy-mm-dd"), "endDate")
+              updateForm(
+                e.target.value
+                  ? moment(e.target.value, CALENDED_DATE_PICKER_FORMAT)
+                  : null,
+                "endDate"
+              )
             }
           />
         </div>
