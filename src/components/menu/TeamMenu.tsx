@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CalendedTextInput from "../form/CalendedTextInput";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
+import CalendedForm from "../form/CalendedForm";
 
 interface TeamCreateForm {
   teamName: string | null;
@@ -21,7 +22,11 @@ const TeamMenu: React.FC<{
   };
 
   return (
-    <form className="calended-form" onSubmit={(e) => e.preventDefault()}>
+    <CalendedForm
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <CalendedTextInput
         header="Team Name"
         mandatory={true}
@@ -30,7 +35,7 @@ const TeamMenu: React.FC<{
         }
       />
       <CalendedSubmitButton value="Add Team" />
-    </form>
+    </CalendedForm>
   );
 };
 

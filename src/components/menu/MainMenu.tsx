@@ -8,27 +8,27 @@ const MainMenu: React.FC<{
     <>
       <div className="grid grid-cols-3">
         <MenuItem
-          name="TEAM's"
+          name="Team"
           onClick={() => props.onMenuSelect(MenuEnum.TEAM)}
         />
         <MenuItem
-          name="OFF DAY's"
+          name="Off Day"
           onClick={() => props.onMenuSelect(MenuEnum.OFF_DAY)}
         />
         <MenuItem
-          name="MEMBER's"
+          name="Member"
           onClick={() => props.onMenuSelect(MenuEnum.MEMBER)}
         />
         <MenuItem
-          name="BASE DATE"
+          name="Base Date"
           onClick={() => props.onMenuSelect(MenuEnum.BASE_DATE)}
         />
         <MenuItem
-          name="BIRTHDAY's"
+          name="Birthday"
           onClick={() => props.onMenuSelect(MenuEnum.BIRTHDAY)}
         />
         <MenuItem
-          name="EXPORT"
+          name="Export"
           onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}
         />
       </div>

@@ -7,6 +7,7 @@ import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import CalendedTextInput from "../form/CalendedTextInput";
 import { HolidayEnum } from "@/enums/HolidayEnum";
 import { useEffect, useState } from "react";
+import CalendedForm from "../form/CalendedForm";
 
 interface OffDayCreateForm {
   name: string | null;
@@ -36,8 +37,7 @@ const OffDayMenu: React.FC<{
   };
 
   return (
-    <form
-      className="calended-form"
+    <CalendedForm
       onSubmit={(e) => {
         e.preventDefault();
       }}
@@ -93,7 +93,7 @@ const OffDayMenu: React.FC<{
         ]}
       />
       <CalendedSubmitButton value="Add Off Day" />
-    </form>
+    </CalendedForm>
   );
 };
 

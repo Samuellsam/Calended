@@ -3,6 +3,7 @@ import CalendedSelect from "../form/CalendedSelect";
 import CalendedTextInput from "../form/CalendedTextInput";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import { useState } from "react";
+import CalendedForm from "../form/CalendedForm";
 
 interface MemberCreateForm {
   name: string | null;
@@ -25,7 +26,7 @@ const MemberMenu: React.FC<{
   };
 
   return (
-    <form className="calended-form" onSubmit={(e) => e.preventDefault()}>
+    <CalendedForm onSubmit={(e) => e.preventDefault()}>
       <div className="grid grid-cols-4 w-full gap-2">
         <div className="col-span-3">
           <CalendedTextInput
@@ -64,7 +65,7 @@ const MemberMenu: React.FC<{
         />
       </div>
       <CalendedSubmitButton value="Add Member" />
-    </form>
+    </CalendedForm>
   );
 };
 

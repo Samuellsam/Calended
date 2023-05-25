@@ -4,7 +4,7 @@ import {
   faBars,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MenuEnum } from "@/enums/MenuEnum";
 import MainMenu from "./MainMenu";
 import TeamMenu from "./TeamMenu";
@@ -13,7 +13,6 @@ import MemberMenu from "./MemberMenu";
 import BaseDateMenu from "./BaseDateMenu";
 import ExportMenu from "./ExportMenu";
 import BirthDayMenu from "./BirthdayMenu";
-import { log } from "console";
 
 const Menu: React.FC<{}> = () => {
   const [isShowed, setIsShowed] = useState<boolean>(false);
@@ -89,7 +88,7 @@ const Menu: React.FC<{}> = () => {
       ) : (
         <FontAwesomeIcon
           icon={faBars}
-          className="fixed top-5 right-7 text-slate-100 hover:text-slate-100 cursor-pointer"
+          className="fixed mt-4 right-7 text-slate-100 hover:text-slate-100 cursor-pointer"
           size="xl"
           onClick={() => openMenu()}
         />

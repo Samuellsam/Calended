@@ -6,6 +6,7 @@ import CalendedSelect from "../form/CalendedSelect";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import { useState } from "react";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
+import CalendedForm from "../form/CalendedForm";
 
 interface BaseDateCreateForm {
   baseDate: Moment | null;
@@ -32,7 +33,7 @@ const BaseDateMenu: React.FC<{
   };
 
   return (
-    <form className="calended-form" onSubmit={(e) => e.preventDefault()}>
+    <CalendedForm onSubmit={(e) => e.preventDefault()}>
       <div className="grid grid-cols-2 gap-2">
         <CalendedDatePicker
           header="Base Date"
@@ -73,7 +74,7 @@ const BaseDateMenu: React.FC<{
         />
       </div>
       <CalendedSubmitButton value="Set Base Date" />
-    </form>
+    </CalendedForm>
   );
 };
 
