@@ -10,15 +10,19 @@ export const todayYear = () => moment().get("year");
 export const isToday = (date: Moment) =>
   date.startOf("day").isSame(moment().startOf("day"));
 
-export const firstDayOfMonth = (month: MonthEnum, year: number) =>
-  moment(moment(`${month + 1} ${year}`, "MM YYYY").startOf("months")).startOf(
-    "weeks"
-  );
+export const firstDayOfMonth = (mont: MonthEnum, year: number) =>
+  {
+    let month = parseInt(mont);
+    return moment(moment(`${month + 1} ${year}`, "MM YYYY").startOf("months")).startOf("weeks")
+  };
 
-export const lastDayOfMonth = (month: MonthEnum, year: number) =>
-  moment(moment(`${month + 1} ${year}`, "MM YYYY").endOf("months")).endOf(
+export const lastDayOfMonth = (mont: MonthEnum, year: number) =>
+{
+  let month = parseInt(mont);
+  return moment(moment(`${month + 1} ${year}`, "MM YYYY").endOf("months")).endOf(
     "weeks"
   );
+}
 
 export const isDateSameOrBefore = (date1: Moment, date2: Moment) =>
   date1.startOf("day").isSameOrBefore(date2.startOf("day"));
@@ -26,5 +30,7 @@ export const isDateSameOrBefore = (date1: Moment, date2: Moment) =>
 export const isDateSame = (date1: Moment, date2: Moment) =>
   date1.startOf("day").isSame(date2.startOf("day"));
 
-export const isDateInMonth = (date: Moment, month: MonthEnum) =>
-  date.get("month") === month;
+export const isDateInMonth = (date: Moment, mont: MonthEnum) => { 
+  let month = parseInt(mont);
+  return date.get("month") === month;
+}
