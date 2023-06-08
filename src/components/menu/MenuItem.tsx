@@ -8,7 +8,7 @@ const MenuItem: React.FC<{
       onClick={props.onClick}
     >
       <div className="flex grow"></div>
-      <p className="menu-item-text absolute font-bold left-1/2 transform -translate-x-1/2 bottom-3 text-center menu-text text-orange-400 hover:text-orange-300">
+      <p className="menu-item-text absolute font-bold left-1/2 transform -translate-x-1/2 bottom-3 text-center menu-text text-slate-100">
         {props.name}
       </p>
     </div>
