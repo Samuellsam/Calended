@@ -42,7 +42,7 @@ const MonthView: React.FC<{
       <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
         {Object.values(DayHeaderEnum).map((header) => (
           <div
-            className="day-view-header text-slate-50 font-bold flex"
+            className="day-view-header text-slate-50 font-bold flex border-b-4 border-solid border-slate-100"
             key={header}
           >
             <p className="my-auto ml-1">{header}</p>
@@ -52,19 +52,21 @@ const MonthView: React.FC<{
     );
   };
 
-  return (
-    <div className="my-2 no-select">
-      <div className="day-view-container flex flex-row justify-start mx-auto">
-        <h1 className="fontgw text-transparent font-bold text-2xl bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... flex flex-row justify-start">
-          {getMonthEnumKeyByValue(props.month)}
+  const generateTitle = () => {
+    return (
+      <div className="bg-slate-800 py-1 px-4 rounded-lg">
+        <h1 className="font-inter-900 month-title-size w-min text-transparent font-bold text-2xl bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 mx-auto">
+          {`${getMonthEnumKeyByValue(props.month)}`}
         </h1>
       </div>
-      <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
-        {generateHeader()}
-      </div>
-      <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
-        {generateDayCalendarItem(props.month, props.year)}
-      </div>
+    );
+  };
+
+  return (
+    <div className="my-2 no-select bg-slate-700 w-min mx-auto rounded-lg p-3">
+      {generateTitle()}
+      {generateHeader()}
+      {generateDayCalendarItem(props.month, props.year)}
     </div>
   );
 };

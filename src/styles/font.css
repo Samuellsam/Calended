@@ -1,8 +1,15 @@
-.font-inter-800 {
+.font-inter-900 {
   font-family: "Inter", sans-serif;
 }
 
 .font-caveat-700 {
   font-family: "Caveat", cursive;
+}
+
+.logo-size {
   font-size: 5em;
+}
+
+.month-title-size {
+  font-size: 2em;
 }

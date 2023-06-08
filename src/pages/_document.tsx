@@ -11,7 +11,7 @@ export default function Document() {
           crossOrigin=""
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@900&display=swap"
           rel="stylesheet"
         />
       </Head>
