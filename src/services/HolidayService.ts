@@ -144,3 +144,7 @@ export const isHoliday = (date: Moment): boolean => {
     ).length > 0
   );
 };
+
+export const isWorkDay = (date: Moment): boolean => {
+  return date.get("day") > 0 && date.get("day") < 6;
+};

@@ -1,26 +1,18 @@
-import moment, { Moment } from "moment";
-import {
-  firstDayOfMonth,
-  lastDayOfMonth,
-  todayMonth,
-  todayYear,
-} from "@/util/DateUtil";
+import { todayYear } from "@/util/DateUtil";
 import { useState } from "react";
+import MonthView from "./month-view/MonthView";
 import { MonthEnum } from "@/enums/MonthEnum";
-import { getHolidaysByDate } from "@/services/HolidayService";
-import { getWfhTeamByDate } from "@/services/CalendarService";
-import DayView from "../components/day-view/DayView";
-import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
-import MonthCalendarView from "./month-view/MonthView";
 
 const Calendar: React.FC<{}> = () => {
   const [year, setYear] = useState<number>(todayYear());
 
-  return (
-    <>
-      <MonthCalendarView year={year} />
-    </>
-  );
+  const generateYearlyCalendar = () => {
+    return Object.values(MonthEnum).map((month) => {
+      return <MonthView month={month} year={year} key={month} />;
+    });
+  };
+
+  return <>{generateYearlyCalendar()}</>;
 };
 
 export default Calendar;
