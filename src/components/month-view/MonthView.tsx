@@ -54,7 +54,7 @@ const MonthCalendarView: React.FC<{
     // const monthly = generateDayCalendarItem(MonthEnum[item],props.year);
     const monthly = generateDayCalendarItem(index.toString(),props.year);
     const html = (
-      <div className="my-2">
+      <div className="my-2 z-1">
         <div className="day-view-container flex flex-row justify-start mx-auto">
           <h1 className="fontgw text-transparent font-bold text-2xl bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... flex flex-row justify-start">
             {item}

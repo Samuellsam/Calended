@@ -21,7 +21,7 @@ const Menu: React.FC<{}> = () => {
 
   const getMenuClassName = () => {
     const defaultClassName =
-      "fixed top-0 right-0 flex bg-slate-800 menu-container";
+      "fixed top-0 z-10 right-0 flex bg-slate-800 bg-opacity-75 menu-container";
 
     if (isShowed) return defaultClassName + " menu-show";
 

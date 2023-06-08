@@ -8,11 +8,11 @@ const HomePage: React.FC<{}> = () => {
 
   return (
     <div className="relative">
+      <Menu />
       <div>
         <Logo />
         <Calendar />
       </div>
-      <Menu />
     </div>
   );
 };
