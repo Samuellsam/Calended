@@ -19,7 +19,7 @@ const DayView: React.FC<{
 
     if (isDateInMonth(props.date, props.month)) {
       if (isHoliday(props.date))
-        return defaultClass + " bg-red-600 text-slate-100";
+        return defaultClass + " bg-red-700 text-slate-100";
 
       if (props.wfhTeam === WfhTeamEnum.A)
         return (
