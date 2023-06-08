@@ -1,12 +1,6 @@
 import { Holiday } from "@/interfaces/Holiday";
 import { Moment } from "moment";
-import {
-  isDateInMonth,
-  isDateSame,
-  isToday,
-  today,
-  todayMonth,
-} from "@/util/DateUtil";
+import { isDateInMonth, isDateSame, today } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import WfoCover from "./WfoCover";
 import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
@@ -16,29 +10,19 @@ import { isHoliday } from "@/services/HolidayService";
 const DayView: React.FC<{
   date: Moment;
   holidays?: Holiday[];
-  calendarMonth: MonthEnum;
+  month: MonthEnum;
   wfhTeam?: WfhTeamEnum;
 }> = (props) => {
-  const generateWfoTeam = () => {
-    if (isHoliday(props.date) || !props.wfhTeam) return <></>;
-
-    return <WfoCover wfhTeam={props.wfhTeam} />;
-  };
-
   const generateDayViewClassName = () => {
     let defaultClass =
       "day-view relative rounded-lg hover:transition-all duration-150 cursor-pointer";
 
-    if (isHoliday(props.date))
-      return (
-        defaultClass +
-        " bg-gradient-to-r from-red-400 to-red-800 text-slate-100 border-dashed border-2 border-slate-50"
-      );
+    if (isDateInMonth(props.date, props.month)) {
+      defaultClass += "  border-solid border-2 border-slate-50";
 
-    // if (isToday(props.date))
-    //   return defaultClass + " bg-slate-100 text-slate-950";
+      if (isHoliday(props.date))
+        return defaultClass + " bg-red-500 text-slate-100";
 
-    if (isDateInMonth(props.date, props.calendarMonth)) {
       if (props.wfhTeam === WfhTeamEnum.A)
         return (
           defaultClass +
@@ -66,6 +50,9 @@ const DayView: React.FC<{
       return defaultClass + " bg-sky-800 text-sky-400 hover:bg-sky-200";
     }
 
+    if (isHoliday(props.date))
+      return defaultClass + " bg-red-950 text-red-300 hover:bg-red-800";
+
     return defaultClass + " bg-sky-950 text-sky-300 hover:bg-sky-800";
   };
 
@@ -73,7 +60,9 @@ const DayView: React.FC<{
     <div className={generateDayViewClassName()}>
       {isDateSame(props.date, today()) && <TodaySign />}
       <p className="font-bold m-3">{props.date.date()}</p>
-      {generateWfoTeam()}
+      {!isHoliday(props.date) && props.wfhTeam && (
+        <WfoCover wfhTeam={props.wfhTeam} />
+      )}
     </div>
   );
 };

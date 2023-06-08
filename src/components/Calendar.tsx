@@ -11,16 +11,12 @@ import { getHolidaysByDate } from "@/services/HolidayService";
 import { getWfhTeamByDate } from "@/services/CalendarService";
 import DayView from "../components/day-view/DayView";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
-import MonthCalendarView from "./month-view/MonthView";
+import MonthView from "./month-view/MonthView";
 
 const Calendar: React.FC<{}> = () => {
   const [year, setYear] = useState<number>(todayYear());
 
-  return (
-    <>
-      <MonthCalendarView year={year} />
-    </>
-  );
+  return <MonthView year={year} />;
 };
 
 export default Calendar;
