@@ -1,6 +1,5 @@
 :root {
   --form-header-font-size: 12px;
-  --form-outline: dashed orange 3px;
   --form-padding: 10px;
   --form-border-radius: 10px;
 }
@@ -18,7 +17,6 @@ select {
 }
 
 .calended-form {
-  outline: var(--form-outline);
   padding: var(--form-padding);
   border-radius: var(--form-border-radius);
 }
