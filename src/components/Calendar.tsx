@@ -1,4 +1,4 @@
-import { todayYear } from "@/util/DateUtil";
+import { todayMonth, todayYear } from "@/util/DateUtil";
 import { useState } from "react";
 import MonthView from "./month-view/MonthView";
 import { MonthEnum } from "@/enums/MonthEnum";
@@ -12,10 +12,14 @@ const Calendar: React.FC<{}> = () => {
     });
   };
 
-  // return (
-  //   <MonthView month={MonthEnum.JANUARY} year={year} key={MonthEnum.JANUARY} />
-  // );
-  return <>{generateYearlyCalendar()}</>;
+  return (
+    <MonthView
+      month={todayMonth() as MonthEnum}
+      year={year}
+      key={todayMonth()}
+    />
+  );
+  // return <>{generateYearlyCalendar()}</>;
 };
 
 export default Calendar;
