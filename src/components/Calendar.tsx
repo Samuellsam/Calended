@@ -12,6 +12,9 @@ const Calendar: React.FC<{}> = () => {
     });
   };
 
+  // return (
+  //   <MonthView month={MonthEnum.JANUARY} year={year} key={MonthEnum.JANUARY} />
+  // );
   return <>{generateYearlyCalendar()}</>;
 };
 
