@@ -29,9 +29,9 @@ const Calendar: React.FC<{
     <>
       {props.calendarView == CalendarViewEnum.MONTH_VIEW ? (
         <MonthView
-          month={MonthEnum.JANUARY}
+          month={MonthEnum.FEBRUARY}
           year={year}
-          key={MonthEnum.JANUARY}
+          key={MonthEnum.FEBRUARY}
         />
       ) : (
         yearlyCalendar()
