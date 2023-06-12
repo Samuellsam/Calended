@@ -6,13 +6,12 @@ import DayView from "../day-view/DayView";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { getMonthEnumKeyByValue } from "@/util/EnumUtil";
-import { Suspense, useMemo } from "react";
 
 const MonthView: React.FC<{
   year: number;
   month: MonthEnum;
 }> = (props) => {
-  const generateDayCalendarItem = useMemo(() => {
+  const generateDayCalendarItem = () => {
     const dayCalendarItem = [];
 
     const currDate: Moment = firstDayOfMonth(
@@ -41,7 +40,7 @@ const MonthView: React.FC<{
         {dayCalendarItem}
       </div>
     );
-  }, [props.month, props.year]);
+  };
 
   const generateHeader = () => {
     return (
@@ -72,7 +71,7 @@ const MonthView: React.FC<{
     <div className="my-2 no-select bg-slate-700 w-min mx-auto rounded-lg p-3">
       {generateTitle()}
       {generateHeader()}
-      {generateDayCalendarItem}
+      {generateDayCalendarItem()}
     </div>
   );
 };
