@@ -127,6 +127,10 @@ const holidays: Holiday[] = [
   },
 ];
 
+export const save = (holidays: Holiday[]) => {
+  // saveToFile(`../../data/HOLIDAY-DATA.txt`, JSON.stringify(holidays));
+};
+
 export const getAllHolidays = (): Holiday[] => {
   return holidays;
 };

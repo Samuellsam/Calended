@@ -12,7 +12,14 @@ const Calendar: React.FC<{}> = () => {
     });
   };
 
-  return <>{generateYearlyCalendar()}</>;
+  return (
+    <MonthView
+      month={todayMonth() as MonthEnum}
+      year={year}
+      key={todayMonth()}
+    />
+  );
+  // return <>{generateYearlyCalendar()}</>;
 };
 
 export default Calendar;
