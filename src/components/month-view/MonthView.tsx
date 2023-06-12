@@ -6,24 +6,30 @@ import DayView from "../day-view/DayView";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { getMonthEnumKeyByValue } from "@/util/EnumUtil";
+import { Suspense, useMemo } from "react";
 
 const MonthView: React.FC<{
   year: number;
   month: MonthEnum;
 }> = (props) => {
-  const generateDayCalendarItem = (month: string, year: number) => {
+  const generateDayCalendarItem = useMemo(() => {
     const dayCalendarItem = [];
 
-    const currDate: Moment = firstDayOfMonth(month as MonthEnum, year);
-    const endDate: Moment = lastDayOfMonth(month as MonthEnum, year);
+    const currDate: Moment = firstDayOfMonth(
+      props.month as MonthEnum,
+      props.year
+    );
+    const endDate: Moment = lastDayOfMonth(
+      props.month as MonthEnum,
+      props.year
+    );
 
     while (currDate.isSameOrBefore(endDate)) {
       dayCalendarItem.push(
         <DayView
-          key={currDate.toString()}
           date={moment(currDate)}
           holidays={getHolidaysByDate(currDate)}
-          month={month as MonthEnum}
+          month={props.month as MonthEnum}
           wfhTeam={getWfhTeamByDate(currDate)}
         />
       );
@@ -35,7 +41,7 @@ const MonthView: React.FC<{
         {dayCalendarItem}
       </div>
     );
-  };
+  }, [props.month, props.year]);
 
   const generateHeader = () => {
     return (
@@ -66,7 +72,7 @@ const MonthView: React.FC<{
     <div className="my-2 no-select bg-slate-700 w-min mx-auto rounded-lg p-3">
       {generateTitle()}
       {generateHeader()}
-      {generateDayCalendarItem(props.month, props.year)}
+      {generateDayCalendarItem}
     </div>
   );
 };

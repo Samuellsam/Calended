@@ -1,26 +1,31 @@
 import Logo from "@/components/Logo";
 import Calendar from "@/components/Calendar";
 import Menu from "@/components/menu/Menu";
-import CalendedFloatButton from "@/components/button/CalendedFloatButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDay, faLocation } from "@fortawesome/free-solid-svg-icons";
+import FloatMenu from "@/components/float-menu/FloatMenu";
+import { useState } from "react";
+import { CalendarViewEnum } from "@/enums/CalendarViewEnum";
 
 const HomePage: React.FC<{}> = () => {
-  const scrollToToday = () => {
-    document
-      .getElementById("today-sign")
-      ?.scrollIntoView({ behavior: "smooth" });
+  const [calendarView, setCalendarView] = useState(CalendarViewEnum.MONTH_VIEW);
+
+  const toggleCalendarView = () => {
+    setCalendarView(
+      calendarView == CalendarViewEnum.MONTH_VIEW
+        ? CalendarViewEnum.YEAR_VIEW
+        : CalendarViewEnum.MONTH_VIEW
+    );
   };
 
   return (
     <div className="relative">
-      <CalendedFloatButton onClick={scrollToToday}>
-        <FontAwesomeIcon icon={faCalendarDay} />
-      </CalendedFloatButton>
       <Menu />
+      <FloatMenu
+        onToggleView={toggleCalendarView}
+        calendarView={calendarView}
+      />
       <div>
         <Logo />
-        <Calendar />
+        <Calendar calendarView={calendarView} />
       </div>
     </div>
   );
