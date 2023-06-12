@@ -17,12 +17,7 @@ const MonthView: React.FC<{
 
   useEffect(() => {
     setMonthCalendar(getMonthCalendar(props.month, props.year));
-    getMonthCalendar(props.month, props.year).forEach((dayModel) => {
-      console.log(dayModel.date.toString());
-      console.log(dayModel.holidays);
-      console.log(dayModel.wfhTeam);
-    });
-  }, []);
+  }, [props.month, props.year]);
 
   const generateDayCalendarItem = () => {
     const dayCalendarItem: ReactNode[] = monthCalendar.map((dayModel, idx) => {
