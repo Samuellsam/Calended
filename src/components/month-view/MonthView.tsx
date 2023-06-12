@@ -1,39 +1,36 @@
-import { getWfhTeamByDate } from "@/services/CalendarService";
+import { getMonthCalendar } from "@/services/CalendarService";
 import { getHolidaysByDate } from "@/services/HolidayService";
-import { firstDayOfMonth, lastDayOfMonth } from "@/util/DateUtil";
+import { firstDayOfMonth, lastDayOfMonth, todayMonth } from "@/util/DateUtil";
 import moment, { Moment } from "moment";
 import DayView from "../day-view/DayView";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { getMonthEnumKeyByValue } from "@/util/EnumUtil";
+import { ReactNode, useEffect, useState } from "react";
+import { DayModel } from "../Calendar";
 
 const MonthView: React.FC<{
   year: number;
   month: MonthEnum;
 }> = (props) => {
+  const [monthCalendar, setMonthCalendar] = useState([] as DayModel[]);
+
+  useEffect(() => {
+    setMonthCalendar(getMonthCalendar(props.month, props.year));
+  }, []);
+
   const generateDayCalendarItem = () => {
-    const dayCalendarItem = [];
-
-    const currDate: Moment = firstDayOfMonth(
-      props.month as MonthEnum,
-      props.year
-    );
-    const endDate: Moment = lastDayOfMonth(
-      props.month as MonthEnum,
-      props.year
-    );
-
-    while (currDate.isSameOrBefore(endDate)) {
-      dayCalendarItem.push(
+    const dayCalendarItem: ReactNode[] = monthCalendar.map((dayModel, idx) => {
+      return (
         <DayView
-          date={moment(currDate)}
-          holidays={getHolidaysByDate(currDate)}
+          key={idx}
+          date={moment(dayModel.date)}
+          holidays={dayModel.holidays}
           month={props.month as MonthEnum}
-          wfhTeam={getWfhTeamByDate(currDate)}
+          wfhTeam={dayModel.wfhTeam}
         />
       );
-      currDate.add(1, "days");
-    }
+    });
 
     return (
       <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
