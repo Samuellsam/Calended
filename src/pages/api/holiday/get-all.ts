@@ -4,10 +4,6 @@ import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
 
-interface SaveHolidayRequest {
-  holidays: Holiday[];
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
