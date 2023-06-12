@@ -25,13 +25,15 @@ const Calendar: React.FC<{
     });
   };
 
+  const monthlyCalendar = () => {
+    return <MonthView month={month} year={year} key={month} />;
+  };
+
   return (
     <>
-      {props.calendarView == CalendarViewEnum.MONTH_VIEW ? (
-        <MonthView month={month} year={year} key={month} />
-      ) : (
-        yearlyCalendar()
-      )}
+      {props.calendarView == CalendarViewEnum.MONTH_VIEW
+        ? monthlyCalendar()
+        : yearlyCalendar()}
     </>
   );
 };
