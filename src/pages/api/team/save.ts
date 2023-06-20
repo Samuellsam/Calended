@@ -4,9 +4,6 @@ import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
 
-interface SaveTeamRequest {
-  team: Team;
-}
 
 export default async function handler(
   req: NextApiRequest,
