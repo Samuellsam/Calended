@@ -6,7 +6,13 @@ import {
 } from "./HolidayService";
 import { WfhTeamEnum, getNextWfhTeam } from "@/enums/WfhTeamEnum";
 import { DayModel } from "@/components/Calendar";
-import { firstDayOfMonth, lastDayOfMonth } from "@/util/DateUtil";
+import {
+  firstDayOfMonth,
+  firstDayOfYear,
+  lastDayOfMonth,
+  lastDayOfYear,
+  todayYear,
+} from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 
 const baseWfhDate: {
@@ -17,18 +23,23 @@ const baseWfhDate: {
   wfhTeam: WfhTeamEnum.C,
 };
 
-export const getMonthCalendar = (month: MonthEnum, year: number) => {
-  let allDayModel: DayModel[] = [];
+let yearlyDayModel: DayModel[] = [];
+
+export const initialize = () => {
+  if (yearlyDayModel.length != 0) return yearlyDayModel;
+  const year = todayYear();
 
   // before base date
-  let currDate: Moment = firstDayOfMonth(month, year);
+  let currDate: Moment = firstDayOfYear(year);
 
   while (currDate.isBefore(moment(baseWfhDate.date))) {
-    allDayModel.push({
-      date: moment(currDate),
-      holidays: getHolidaysByDate(currDate),
-      wfhTeam: undefined,
-    });
+    if (currDate.isSameOrAfter(firstDayOfYear(year))) {
+      yearlyDayModel.push({
+        date: moment(currDate),
+        holidays: getHolidaysByDate(currDate),
+        wfhTeam: undefined,
+      });
+    }
 
     currDate.add(1, "days");
   }
@@ -37,7 +48,7 @@ export const getMonthCalendar = (month: MonthEnum, year: number) => {
   currDate = moment(baseWfhDate.date);
   let currWfh: WfhTeamEnum = baseWfhDate.wfhTeam;
 
-  while (currDate.isBefore(lastDayOfMonth(month, year))) {
+  while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
       date: moment(currDate),
       holidays: getHolidaysByDate(currDate),
@@ -56,12 +67,20 @@ export const getMonthCalendar = (month: MonthEnum, year: number) => {
       currDayModel.wfhTeam = currWfh;
     }
 
-    allDayModel.push(currDayModel);
+    yearlyDayModel.push(currDayModel);
 
     currDate.add(1, "days");
   }
+};
 
-  return allDayModel.filter((day) =>
-    day.date.isSameOrAfter(firstDayOfMonth(month, year))
+export const getMonthCalendar = (month: MonthEnum, year: number) => {
+  if (yearlyDayModel.length == 0) {
+    initialize();
+  }
+
+  return yearlyDayModel.filter(
+    (day) =>
+      day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
+      day.date.isBefore(lastDayOfMonth(month, year))
   );
 };

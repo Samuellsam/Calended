@@ -16,7 +16,7 @@ export interface DayModel {
 const Calendar: React.FC<{
   calendarView: CalendarViewEnum;
 }> = (props) => {
-  const [month, setMonth] = useState<MonthEnum>(todayMonth());
+  const [month, setMonth] = useState<MonthEnum>(MonthEnum.JANUARY);
   const [year, setYear] = useState<number>(todayYear());
 
   const yearlyCalendar = () => {
