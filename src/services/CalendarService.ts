@@ -14,6 +14,7 @@ import {
   todayYear,
 } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
+import { MonthlyDayModelMemo } from "@/interfaces/MonthlyDayModelMemo";
 
 const baseWfhDate: {
   date: Moment;
@@ -24,6 +25,7 @@ const baseWfhDate: {
 };
 
 let yearlyDayModel: DayModel[] = [];
+let monthlyDayModel: MonthlyDayModelMemo = {};
 
 export const initialize = () => {
   if (yearlyDayModel.length != 0) return yearlyDayModel;
@@ -78,9 +80,15 @@ export const getMonthCalendar = (month: MonthEnum, year: number) => {
     initialize();
   }
 
-  return yearlyDayModel.filter(
+  const monthMemo = monthlyDayModel[month];
+  if (monthMemo !== undefined && monthMemo.length > 0)
+    return monthlyDayModel[month];
+
+  monthlyDayModel[month as MonthEnum] = yearlyDayModel.filter(
     (day) =>
       day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
       day.date.isBefore(lastDayOfMonth(month, year))
   );
+
+  return monthlyDayModel[month as MonthEnum];
 };
