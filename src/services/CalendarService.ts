@@ -14,20 +14,35 @@ import {
   todayYear,
 } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
-import { MonthlyDayModelMemo } from "@/interfaces/MonthlyDayModelMemo";
+import { MonthlyDayModel } from "@/interfaces/MonthlyDayModel";
+import { BaseWfhDateModel } from "@/interfaces/BaseWfhDateModel";
 
-const baseWfhDate: {
-  date: Moment;
-  wfhTeam: WfhTeamEnum;
-} = {
+let yearlyDayModel: DayModel[] = [];
+let monthlyDayModel: MonthlyDayModel = {};
+
+const baseWfhDate: BaseWfhDateModel = {
   date: moment("02-01-2023", HOLIDAY_DATE_FORMAT),
   wfhTeam: WfhTeamEnum.C,
 };
 
-let yearlyDayModel: DayModel[] = [];
-let monthlyDayModel: MonthlyDayModelMemo = {};
-
 export const initialize = () => {
+  initializeFullYear();
+  initializeMonth();
+};
+
+export const initializeMonth = () => {
+  const year = todayYear();
+
+  Object.values(MonthEnum).forEach((month) => {
+    monthlyDayModel[month] = yearlyDayModel.filter(
+      (day) =>
+        day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
+        day.date.isBefore(lastDayOfMonth(month, year))
+    );
+  });
+};
+
+export const initializeFullYear = () => {
   if (yearlyDayModel.length != 0) return yearlyDayModel;
   const year = todayYear();
 
@@ -79,16 +94,6 @@ export const getMonthCalendar = (month: MonthEnum, year: number) => {
   if (yearlyDayModel.length == 0) {
     initialize();
   }
-
-  const monthMemo = monthlyDayModel[month];
-  if (monthMemo !== undefined && monthMemo.length > 0)
-    return monthlyDayModel[month];
-
-  monthlyDayModel[month as MonthEnum] = yearlyDayModel.filter(
-    (day) =>
-      day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
-      day.date.isBefore(lastDayOfMonth(month, year))
-  );
 
   return monthlyDayModel[month as MonthEnum];
 };

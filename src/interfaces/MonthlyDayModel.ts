@@ -1,7 +1,7 @@
 import { DayModel } from "@/components/Calendar";
 import { MonthEnum } from "@/enums/MonthEnum";
 
-export interface MonthlyDayModelMemo {
+export interface MonthlyDayModel {
   [MonthEnum.JANUARY]?: DayModel[];
   [MonthEnum.FEBRUARY]?: DayModel[];
   [MonthEnum.MARCH]?: DayModel[];
