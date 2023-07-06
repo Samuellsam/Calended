@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalendedTextInput from "../form/CalendedTextInput";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import CalendedForm from "../form/CalendedForm";
+import CalendedColorInput from "../form/CalendedColorInput";
+import axios, { AxiosError } from "axios";
 
 interface TeamCreateForm {
   name: string | null;
+  color: string | null;
 }
 
 const TeamMenu: React.FC<{
@@ -12,7 +15,10 @@ const TeamMenu: React.FC<{
 }> = () => {
   const [teamCreateForm, setTeamCreateForm] = useState<TeamCreateForm>({
     name: null,
+    color: null,
   });
+
+  const [alertMsg, setAlertMsg] = useState<string>();
 
   const updateForm = (newValue: string | null, attr: string) => {
     setTeamCreateForm({
@@ -21,38 +27,47 @@ const TeamMenu: React.FC<{
     });
   };
 
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("/api/team/save", {
+        name: teamCreateForm.name,
+        color: teamCreateForm.color,
+      });
+      setAlertMsg(
+        `${response.status} - ${response.data.message}`.toUpperCase()
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setAlertMsg(
+          `${error.response?.status} - ${error.response?.data.message}`.toUpperCase()
+        );
+      }
+    }
+  };
+
   return (
-    <CalendedForm
-      onSubmit={ async (e) => {
-        e.preventDefault();
-
-        const options = {
-          // The method is POST because we are sending data.
-          method: 'POST',
-          // Tell the server we're sending JSON.
-          headers: {
-            'Content-Type'                : 'application/json',
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-          },
-          // Body of the request is the JSON data we created above.
-          body: JSON.stringify(teamCreateForm),
-        }
-
-        // console.log(options);
-        // console.log(teamCreateForm);
-        const response = await fetch('/api/team/save', options)
-        const result   = await response.json()
-        alert(result.message);
-      }}
-    >
-      <CalendedTextInput
-        header="Team Name"
-        mandatory={true}
-        onChange={(e) =>
-          updateForm(e.target.value ? e.target.value : null, "name")
-        }
-      />
+    <CalendedForm alert={alertMsg} onSubmit={(e) => onSubmit(e)}>
+      <div className="grid grid-cols-4 w-full gap-2">
+        <div className="col-span-3">
+          <CalendedTextInput
+            header="Team Name"
+            mandatory={true}
+            onChange={(e) =>
+              updateForm(e.target.value ? e.target.value : null, "name")
+            }
+          />
+        </div>
+        <CalendedColorInput
+          header="Signature"
+          className="w-full h-full"
+          mandatory={true}
+          onChange={(e) =>
+            updateForm(e.target.value ? e.target.value : null, "color")
+          }
+        />
+      </div>
       <CalendedSubmitButton value="Add Team" />
     </CalendedForm>
   );

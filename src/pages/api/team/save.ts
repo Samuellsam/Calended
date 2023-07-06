@@ -4,7 +4,6 @@ import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -21,28 +20,28 @@ export default async function handler(
       newTeam = JSON.parse(existingTeams) as Team[];
     }
 
-    const team: Team = req.body;
-          team.name  = team.name?.trim().toLowerCase();
+    const team: Team = {
+      name: req.body["name"],
+      color: req.body["color"].toUpperCase(),
+      order: newTeam.length,
+      member: [],
+    };
 
-    if(team.name == null || team.name == ''){
-      return res.status(401).json({ message: "Team cant be null" } as Response);
+    if (team.name == null || team.name == "") {
+      return res.status(400).json({ message: "Team cant be null" } as Response);
     }
-    if(newTeam.filter( (t:Team) => t?.name === team.name).length > 0){
-      return res.status(401).json({ message: "Team already exists" } as Response);
+    if (newTeam.filter((t: Team) => t?.name === team.name).length > 0) {
+      return res
+        .status(400)
+        .json({ message: "Team already exists" } as Response);
     }
-    
+
     newTeam = newTeam.concat(team);
 
     try {
-      await fsPromises.writeFile(
-        TEAM_DATA_PATH,
-        JSON.stringify(newTeam)
-      );
+      await fsPromises.writeFile(TEAM_DATA_PATH, JSON.stringify(newTeam));
 
-      res
-        .status(200)
-        .json({ message: "Team stored successfully" } as Response);
-
+      res.status(200).json({ message: "Team stored successfully" } as Response);
     } catch (error) {
       res.status(500).json({ message: "Internal server error" } as Response);
     }

@@ -5,25 +5,25 @@ export const WfhTeams: Team[] = [
     name: "A",
     member: [],
     order: 0,
-    color: "rgb(253 230 138)",
+    color: "#FDE68A",
   },
   {
     name: "B",
     member: [],
     order: 1,
-    color: "rgb(190 242 100)",
+    color: "#BEF264",
   },
   {
     name: "C",
     member: [],
     order: 2,
-    color: "rgb(249 115 22)",
+    color: "#F97316",
   },
   {
     name: "D",
     member: [],
     order: 3,
-    color: "rgb(103 232 249)",
+    color: "#67E8F9",
   },
 ];
 
