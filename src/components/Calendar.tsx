@@ -5,11 +5,11 @@ import { MonthEnum } from "@/enums/MonthEnum";
 import { CalendarViewEnum } from "@/enums/CalendarViewEnum";
 import { Holiday } from "@/interfaces/Holiday";
 import { Moment } from "moment";
-import { WfhTeamModel } from "@/interfaces/WfhTeamModel";
+import { Team } from "@/interfaces/Team";
 
 export interface DayModel {
   date: Moment;
-  wfhTeam?: WfhTeamModel | undefined;
+  wfhTeam?: Team | undefined;
   holidays?: Holiday[];
 }
 

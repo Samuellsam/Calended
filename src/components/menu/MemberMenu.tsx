@@ -3,11 +3,11 @@ import CalendedTextInput from "../form/CalendedTextInput";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import { useState } from "react";
 import CalendedForm from "../form/CalendedForm";
-import { WfhTeamModel } from "@/interfaces/WfhTeamModel.js";
+import { Team } from "@/interfaces/Team";
 
 interface MemberCreateForm {
   name: string | null;
-  teamName: WfhTeamModel | null;
+  teamName: Team | null;
 }
 
 const MemberMenu: React.FC<{
@@ -18,7 +18,7 @@ const MemberMenu: React.FC<{
     teamName: null,
   });
 
-  const updateForm = (newValue: string | null | WfhTeamModel, attr: string) => {
+  const updateForm = (newValue: string | null | Team, attr: string) => {
     setMemberCreateForm({
       ...memberCreateForm,
       [attr]: newValue,

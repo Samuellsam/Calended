@@ -1,8 +1,10 @@
 interface Member {
-  name: string
+  name: string;
 }
 
 export interface Team {
-  name   : string,
-  member?: Member[]
+  name: string;
+  member?: Member[];
+  order: number;
+  color: string;
 }

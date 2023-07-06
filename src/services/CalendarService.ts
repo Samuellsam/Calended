@@ -1,9 +1,5 @@
 import moment, { Moment } from "moment";
-import {
-  HOLIDAY_DATE_FORMAT,
-  getHolidaysByDate,
-  isHoliday,
-} from "./HolidayService";
+import { getHolidaysByDate } from "./HolidayService";
 import { DayModel } from "@/components/Calendar";
 import {
   firstDayOfMonth,
@@ -15,8 +11,8 @@ import {
 import { MonthEnum } from "@/enums/MonthEnum";
 import { MonthlyDayModel } from "@/interfaces/MonthlyDayModel";
 import { getBaseWfhDate } from "./BaseWfhDateService";
-import { WfhTeamModel } from "@/interfaces/WfhTeamModel";
 import { getNextWfhTeam } from "./TeamService";
+import { Team } from "@/interfaces/Team";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
@@ -61,7 +57,7 @@ export const initializeFullYear = () => {
 
   // same or after base date
   currDate = moment(baseWfhDate.date);
-  let currWfh: WfhTeamModel = baseWfhDate.wfhTeam;
+  let currWfh: Team = baseWfhDate.wfhTeam;
 
   while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
@@ -78,7 +74,7 @@ export const initializeFullYear = () => {
       currDate.isoWeekday() != 7 &&
       !currDate.isBefore(baseWfhDate.date)
     ) {
-      currWfh = getNextWfhTeam(currWfh) as WfhTeamModel;
+      currWfh = getNextWfhTeam(currWfh) as Team;
 
       currDayModel.wfhTeam = currWfh;
     }

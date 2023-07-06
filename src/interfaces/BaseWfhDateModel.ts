@@ -1,7 +1,7 @@
 import { Moment } from "moment";
-import { WfhTeamModel } from "./WfhTeamModel";
+import { Team } from "./Team";
 
 export interface BaseWfhDateModel {
   date: Moment;
-  wfhTeam: WfhTeamModel;
+  wfhTeam: Team;
 }

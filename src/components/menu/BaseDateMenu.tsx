@@ -6,11 +6,11 @@ import CalendedSelect from "../form/CalendedSelect";
 import { useState } from "react";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import CalendedForm from "../form/CalendedForm";
-import { WfhTeamModel } from "@/interfaces/WfhTeamModel.js";
+import { Team } from "@/interfaces/Team";
 
 interface BaseDateCreateForm {
   baseDate: Moment | null;
-  wfhTeam: WfhTeamModel | null;
+  wfhTeam: Team | null;
 }
 
 const BaseDateMenu: React.FC<{
@@ -23,7 +23,7 @@ const BaseDateMenu: React.FC<{
     });
 
   const updateForm = (
-    newValue: string | null | Moment | WfhTeamModel,
+    newValue: string | null | Moment | Team,
     attr: string
   ) => {
     setBaseDateCreateForm({
