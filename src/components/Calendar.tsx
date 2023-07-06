@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import MonthView from "./month-view/MonthView";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { CalendarViewEnum } from "@/enums/CalendarViewEnum";
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import { Holiday } from "@/interfaces/Holiday";
 import { Moment } from "moment";
+import { WfhTeamModel } from "@/interfaces/WfhTeamModel";
 
 export interface DayModel {
   date: Moment;
-  wfhTeam?: WfhTeamEnum | undefined;
+  wfhTeam?: WfhTeamModel | undefined;
   holidays?: Holiday[];
 }
 

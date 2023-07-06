@@ -1,13 +1,13 @@
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import CalendedSelect from "../form/CalendedSelect";
 import CalendedTextInput from "../form/CalendedTextInput";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import { useState } from "react";
 import CalendedForm from "../form/CalendedForm";
+import { WfhTeamModel } from "@/interfaces/WfhTeamModel.js";
 
 interface MemberCreateForm {
   name: string | null;
-  teamName: WfhTeamEnum | null;
+  teamName: WfhTeamModel | null;
 }
 
 const MemberMenu: React.FC<{
@@ -18,7 +18,7 @@ const MemberMenu: React.FC<{
     teamName: null,
   });
 
-  const updateForm = (newValue: string | null | WfhTeamEnum, attr: string) => {
+  const updateForm = (newValue: string | null | WfhTeamModel, attr: string) => {
     setMemberCreateForm({
       ...memberCreateForm,
       [attr]: newValue,
@@ -47,19 +47,19 @@ const MemberMenu: React.FC<{
           options={[
             {
               name: "A",
-              value: WfhTeamEnum.A,
+              value: "A",
             },
             {
               name: "B",
-              value: WfhTeamEnum.B,
+              value: "B",
             },
             {
               name: "C",
-              value: WfhTeamEnum.C,
+              value: "C",
             },
             {
               name: "D",
-              value: WfhTeamEnum.D,
+              value: "D",
             },
           ]}
         />

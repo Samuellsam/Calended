@@ -1,6 +1,4 @@
 import { getMonthCalendar } from "@/services/CalendarService";
-import { getHolidaysByDate } from "@/services/HolidayService";
-import { firstDayOfMonth, lastDayOfMonth, todayMonth } from "@/util/DateUtil";
 import moment, { Moment } from "moment";
 import DayView from "../day-view/DayView";
 import { DayHeaderEnum } from "@/enums/DayHeaderEnum";

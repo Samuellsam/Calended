@@ -4,7 +4,6 @@ import {
   getHolidaysByDate,
   isHoliday,
 } from "./HolidayService";
-import { WfhTeamEnum, getNextWfhTeam } from "@/enums/WfhTeamEnum";
 import { DayModel } from "@/components/Calendar";
 import {
   firstDayOfMonth,
@@ -15,15 +14,12 @@ import {
 } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { MonthlyDayModel } from "@/interfaces/MonthlyDayModel";
-import { BaseWfhDateModel } from "@/interfaces/BaseWfhDateModel";
+import { getBaseWfhDate } from "./BaseWfhDateService";
+import { WfhTeamModel } from "@/interfaces/WfhTeamModel";
+import { getNextWfhTeam } from "./TeamService";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
-
-const baseWfhDate: BaseWfhDateModel = {
-  date: moment("02-01-2023", HOLIDAY_DATE_FORMAT),
-  wfhTeam: WfhTeamEnum.C,
-};
 
 export const initialize = () => {
   initializeFullYear();
@@ -43,6 +39,8 @@ export const initializeMonth = () => {
 };
 
 export const initializeFullYear = () => {
+  const baseWfhDate = getBaseWfhDate();
+
   if (yearlyDayModel.length != 0) return yearlyDayModel;
   const year = todayYear();
 
@@ -63,7 +61,7 @@ export const initializeFullYear = () => {
 
   // same or after base date
   currDate = moment(baseWfhDate.date);
-  let currWfh: WfhTeamEnum = baseWfhDate.wfhTeam;
+  let currWfh: WfhTeamModel = baseWfhDate.wfhTeam;
 
   while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
@@ -80,7 +78,8 @@ export const initializeFullYear = () => {
       currDate.isoWeekday() != 7 &&
       !currDate.isBefore(baseWfhDate.date)
     ) {
-      currWfh = getNextWfhTeam(currWfh) as WfhTeamEnum;
+      currWfh = getNextWfhTeam(currWfh) as WfhTeamModel;
+
       currDayModel.wfhTeam = currWfh;
     }
 

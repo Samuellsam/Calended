@@ -3,15 +3,15 @@ import { Moment } from "moment";
 import { isDateInMonth, isDateSame, today } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import WfoCover from "./WfoCover";
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import TodaySign from "./TodaySign";
 import { isHoliday } from "@/services/HolidayService";
+import { WfhTeamModel } from "@/enums/WfhTeamEnum";
 
 const DayView: React.FC<{
   date: Moment;
   holidays?: Holiday[];
   month: MonthEnum;
-  wfhTeam?: WfhTeamEnum;
+  wfhTeam?: WfhTeamModel;
 }> = (props) => {
   const generateDayViewClassName = () => {
     let defaultClass =
@@ -21,28 +21,10 @@ const DayView: React.FC<{
       if (isHoliday(props.date))
         return defaultClass + " bg-red-700 text-slate-100";
 
-      if (props.wfhTeam === WfhTeamEnum.A)
+      if (props.wfhTeam)
         return (
           defaultClass +
-          " bg-gradient-to-r from-amber-100 to-amber-300 text-slate-950"
-        );
-
-      if (props.wfhTeam === WfhTeamEnum.B)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-lime-200 to-lime-500 text-slate-950"
-        );
-
-      if (props.wfhTeam === WfhTeamEnum.C)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-orange-300 to-orange-600 text-slate-950"
-        );
-
-      if (props.wfhTeam === WfhTeamEnum.D)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-cyan-200 to-cyan-500 text-slate-950"
+          ` bg-gradient-to-r from-${props.wfhTeam.color}-100 to-${props.wfhTeam.color}-300 text-slate-950`
         );
 
       return defaultClass + " bg-sky-800 text-sky-400 hover:bg-sky-200";

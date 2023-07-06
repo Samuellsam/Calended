@@ -3,14 +3,14 @@ import CalendedDatePicker, {
   CALENDED_DATE_PICKER_FORMAT,
 } from "../form/CalendedDatePicker";
 import CalendedSelect from "../form/CalendedSelect";
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import { useState } from "react";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
 import CalendedForm from "../form/CalendedForm";
+import { WfhTeamModel } from "@/interfaces/WfhTeamModel.js";
 
 interface BaseDateCreateForm {
   baseDate: Moment | null;
-  wfhTeam: WfhTeamEnum | null;
+  wfhTeam: WfhTeamModel | null;
 }
 
 const BaseDateMenu: React.FC<{
@@ -23,7 +23,7 @@ const BaseDateMenu: React.FC<{
     });
 
   const updateForm = (
-    newValue: string | null | Moment | WfhTeamEnum,
+    newValue: string | null | Moment | WfhTeamModel,
     attr: string
   ) => {
     setBaseDateCreateForm({
@@ -56,19 +56,19 @@ const BaseDateMenu: React.FC<{
           options={[
             {
               name: "A",
-              value: WfhTeamEnum.A,
+              value: "A",
             },
             {
               name: "B",
-              value: WfhTeamEnum.B,
+              value: "B",
             },
             {
               name: "C",
-              value: WfhTeamEnum.C,
+              value: "C",
             },
             {
               name: "D",
-              value: WfhTeamEnum.D,
+              value: "D",
             },
           ]}
         />
