@@ -1,28 +1,28 @@
 import { Team } from "@/interfaces/Team";
 
-export const WfhTeams: Team[] = [
+export const Teams: Team[] = [
   {
     name: "A",
     member: [],
-    order: 0,
+    order: 1,
     color: "#FDE68A",
   },
   {
     name: "B",
     member: [],
-    order: 1,
+    order: 2,
     color: "#BEF264",
   },
   {
     name: "C",
     member: [],
-    order: 2,
+    order: 3,
     color: "#F97316",
   },
   {
     name: "D",
     member: [],
-    order: 3,
+    order: 4,
     color: "#67E8F9",
   },
 ];
@@ -40,13 +40,13 @@ export const getWfoTeam = (wfhTeam: Team) => {
     if (!currWfhTeam) return "";
 
     wfo += currWfhTeam.name;
-  } while (wfo.length < WfhTeams.length - 1);
+  } while (wfo.length < Teams.length - 1);
 
   return wfo;
 };
 
 export const getNextWfhTeam = (wfhTeam: Team) => {
-  if (wfhTeam.order == WfhTeams.length - 1) {
+  if (wfhTeam.order == Teams.length - 1) {
     const firstTeam = getTeamByOrder(0);
 
     if (!firstTeam) return undefined;
@@ -54,7 +54,7 @@ export const getNextWfhTeam = (wfhTeam: Team) => {
     return firstTeam;
   }
 
-  const nextWfhTeam = WfhTeams.find((team) => team.order == wfhTeam.order + 1);
+  const nextWfhTeam = Teams.find((team) => team.order == wfhTeam.order + 1);
 
   if (!nextWfhTeam) return undefined;
 
@@ -62,9 +62,9 @@ export const getNextWfhTeam = (wfhTeam: Team) => {
 };
 
 export const getTeamByOrder = (order: number) => {
-  return WfhTeams.find((team) => team.order == order);
+  return Teams.find((team) => team.order == order);
 };
 
 export const getTeamByName = (name: string) => {
-  return WfhTeams.find((team) => team.name == name);
+  return Teams.find((team) => team.name == name);
 };

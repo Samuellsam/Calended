@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import CalendedTextInput from "../form/CalendedTextInput";
-import CalendedSubmitButton from "../form/CalendedSubmitButton";
-import CalendedForm from "../form/CalendedForm";
-import CalendedColorInput from "../form/CalendedColorInput";
+import CalendedTextInput from "../../form/CalendedTextInput";
+import CalendedSubmitButton from "../../form/CalendedSubmitButton";
+import CalendedForm from "../../form/CalendedForm";
+import CalendedColorInput from "../../form/CalendedColorInput";
 import axios, { AxiosError } from "axios";
 import {
   AlertModel,
@@ -10,6 +10,8 @@ import {
   WARNING_ALERT,
   SUCCESS_ALERT,
 } from "@/interfaces/AlertModel";
+import CalendedAlert from "@/components/form/CalendedAlert";
+import TeamListView from "./TeamListView";
 
 interface TeamCreateForm {
   name: string | null;
@@ -61,28 +63,34 @@ const TeamMenu: React.FC<{
   };
 
   return (
-    <CalendedForm alert={alert} onSubmit={(e) => onSubmit(e)}>
-      <div className="grid grid-cols-4 w-full gap-2">
-        <div className="col-span-3">
-          <CalendedTextInput
-            header="Team Name"
+    <>
+      <CalendedAlert alert={alert} />
+      <hr className="m-1" />
+      <CalendedForm onSubmit={(e) => onSubmit(e)}>
+        <div className="grid grid-cols-4 w-full gap-2">
+          <div className="col-span-3">
+            <CalendedTextInput
+              header="Team Name"
+              mandatory={true}
+              onChange={(e) =>
+                updateForm(e.target.value ? e.target.value : null, "name")
+              }
+            />
+          </div>
+          <CalendedColorInput
+            header="Signature"
+            className="w-full h-full"
             mandatory={true}
             onChange={(e) =>
-              updateForm(e.target.value ? e.target.value : null, "name")
+              updateForm(e.target.value ? e.target.value : null, "color")
             }
           />
         </div>
-        <CalendedColorInput
-          header="Signature"
-          className="w-full h-full"
-          mandatory={true}
-          onChange={(e) =>
-            updateForm(e.target.value ? e.target.value : null, "color")
-          }
-        />
-      </div>
-      <CalendedSubmitButton value="Add Team" />
-    </CalendedForm>
+        <CalendedSubmitButton value="Add Team" />
+      </CalendedForm>
+      <hr className="m-1" />
+      <TeamListView />
+    </>
   );
 };
 
