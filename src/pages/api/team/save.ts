@@ -22,13 +22,20 @@ export default async function handler(
 
     const team: Team = {
       name: req.body["name"],
-      color: req.body["color"].toUpperCase(),
+      color: req.body["color"],
       order: newTeam.length,
       member: [],
     };
 
     if (team.name == null || team.name == "") {
-      return res.status(400).json({ message: "Team cant be null" } as Response);
+      return res
+        .status(400)
+        .json({ message: "Team name cant be null" } as Response);
+    }
+    if (team.color == null || team.color == "") {
+      return res
+        .status(400)
+        .json({ message: "Team color cant be null" } as Response);
     }
     if (newTeam.filter((t: Team) => t?.name === team.name).length > 0) {
       return res
