@@ -9,7 +9,7 @@ const TeamListItem: React.FC<{
       <div className="flex flex-col">
         <p className="font-bold">{`#${props.team.order}`}</p>
         <div className="grid grid-cols-8">
-          <p className="col-span-6">{`Team ${props.team.name} (${props.team.member?.length} member's)`}</p>
+          <p className="col-span-6 text-md">{`Team ${props.team.name} (${props.team.member?.length} member's)`}</p>
           <input type="color" value={props.team.color} disabled={true} />
           <p className="text-sm my-auto">{`${props.team.color}`}</p>
         </div>
