@@ -46,8 +46,8 @@ export const getWfoTeam = (wfhTeam: Team) => {
 };
 
 export const getNextWfhTeam = (wfhTeam: Team) => {
-  if (wfhTeam.order == Teams.length - 1) {
-    const firstTeam = getTeamByOrder(0);
+  if (wfhTeam.order == Teams.length) {
+    const firstTeam = getTeamByOrder(1);
 
     if (!firstTeam) return undefined;
 
