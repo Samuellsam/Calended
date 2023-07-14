@@ -11,7 +11,7 @@ const MainMenu: React.FC<{
           name="Team"
           onClick={() => props.onMenuSelect(MenuEnum.TEAM)}
         />
-        <MenuItem
+        {/* <MenuItem
           name="Off Day"
           onClick={() => props.onMenuSelect(MenuEnum.OFF_DAY)}
         />
@@ -30,7 +30,7 @@ const MainMenu: React.FC<{
         <MenuItem
           name="Export"
           onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}
-        />
+        /> */}
       </div>
     </>
   );

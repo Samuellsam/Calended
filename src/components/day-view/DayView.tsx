@@ -3,15 +3,15 @@ import { Moment } from "moment";
 import { isDateInMonth, isDateSame, today } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import WfoCover from "./WfoCover";
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import TodaySign from "./TodaySign";
 import { isHoliday } from "@/services/HolidayService";
+import { Team } from "@/interfaces/Team";
 
 const DayView: React.FC<{
-  date     : Moment;
+  date: Moment;
   holidays?: string;
-  month    : MonthEnum;
-  wfhTeam ?: WfhTeamEnum;
+  month: MonthEnum;
+  wfhTeam?: Team;
 }> = (props) => {
   const generateDayViewClassName = () => {
     let defaultClass =
@@ -21,29 +21,9 @@ const DayView: React.FC<{
       if (props.holidays !== undefined)
         return defaultClass + " bg-red-700 text-slate-100";
 
-      if (props.wfhTeam === WfhTeamEnum.A)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-amber-100 to-amber-300 text-slate-950"
-        );
-
-      if (props.wfhTeam === WfhTeamEnum.B)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-lime-200 to-lime-500 text-slate-950"
-        );
-
-      if (props.wfhTeam === WfhTeamEnum.C)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-orange-300 to-orange-600 text-slate-950"
-        );
-
-      if (props.wfhTeam === WfhTeamEnum.D)
-        return (
-          defaultClass +
-          " bg-gradient-to-r from-cyan-200 to-cyan-500 text-slate-950"
-        );
+      if (props.wfhTeam) {
+        return defaultClass + ` text-slate-950`;
+      }
 
       return defaultClass + " bg-sky-800 text-sky-400 hover:bg-sky-200";
     }
@@ -55,7 +35,15 @@ const DayView: React.FC<{
   };
   
   return (
-    <div className={generateDayViewClassName()}>
+    <div
+      className={generateDayViewClassName()}
+      style={{
+        background:
+          isDateInMonth(props.date, props.month) && props.wfhTeam
+            ? props.wfhTeam.color
+            : undefined,
+      }}
+    >
       {isDateSame(props.date, today()) && <TodaySign />}
       <p className="font-bold m-3">{props.date.date()}</p>
       {!isHoliday(props.holidays) && props.wfhTeam && (

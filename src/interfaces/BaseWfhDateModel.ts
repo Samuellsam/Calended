@@ -1,7 +1,7 @@
-import { WfhTeamEnum } from "@/enums/WfhTeamEnum";
 import { Moment } from "moment";
+import { Team } from "./Team";
 
 export interface BaseWfhDateModel {
   date: Moment;
-  wfhTeam: WfhTeamEnum;
+  wfhTeam: Team;
 }

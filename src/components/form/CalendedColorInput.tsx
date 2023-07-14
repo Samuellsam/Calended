@@ -1,6 +1,6 @@
 import CalendedInputHeader from "./CalendedInputHeader";
 
-const CalendedTextInput: React.FC<{
+const CalendedColorInput: React.FC<{
   placeholder?: string;
   header?: string;
   mandatory?: boolean;
@@ -10,14 +10,14 @@ const CalendedTextInput: React.FC<{
   disabled?: boolean;
 }> = (props) => {
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col">
       {props.header && (
         <CalendedInputHeader mandatory={props.mandatory} txt={props.header} />
       )}
 
       <input
-        type="text"
-        className={`w-full rounded-lg p-2 shadow-md calended-input-text mb-2 ${props.className}`}
+        type="color"
+        className={`rounded-sm shadow-md mb-2 ${props.className}`}
         onChange={props.onChange}
         value={props.value}
         disabled={props.disabled}
@@ -26,4 +26,4 @@ const CalendedTextInput: React.FC<{
   );
 };
 
-export default CalendedTextInput;
+export default CalendedColorInput;

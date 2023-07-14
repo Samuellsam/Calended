@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import { MenuEnum } from "@/enums/MenuEnum";
 import MainMenu from "./MainMenu";
-import TeamMenu from "./TeamMenu";
+import TeamMenu from "./team/TeamMenu";
 import OffDayMenu from "./OffDayMenu";
 import MemberMenu from "./MemberMenu";
 import BaseDateMenu from "./BaseDateMenu";

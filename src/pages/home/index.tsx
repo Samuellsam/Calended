@@ -23,10 +23,10 @@ const HomePage: React.FC<{}> = () => {
         onToggleView={toggleCalendarView}
         calendarView={calendarView}
       />
-      <div>
+      {/* <div>
         <Logo />
         <Calendar calendarView={calendarView} />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,11 +1,10 @@
 import moment, { Moment } from "moment";
 import {
   HOLIDAY_DATE_FORMAT,
-  getHolidaysByDate,
   isHoliday,
   isHolidayCheck,
 } from "./HolidayService";
-import { WfhTeamEnum, getNextWfhTeam } from "@/enums/WfhTeamEnum";
+import { getHolidaysByDate } from "./HolidayService";
 import { DayModel } from "@/components/Calendar";
 import {
   firstDayOfMonth,
@@ -17,19 +16,23 @@ import {
 } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { MonthlyDayModel } from "@/interfaces/MonthlyDayModel";
-import { BaseWfhDateModel } from "@/interfaces/BaseWfhDateModel";
+import { getBaseWfhDate } from "./BaseWfhDateService";
+import { getNextWfhTeam } from "./TeamService";
+import { Team } from "@/interfaces/Team";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
 import { Holiday } from "@/interfaces/Holiday";
 
-const baseWfhDate: BaseWfhDateModel = {
-  date: moment("02-01-2023", HOLIDAY_DATE_FORMAT),
-  wfhTeam: WfhTeamEnum.C,
-};
+// const baseWfhDate: BaseWfhDateModel = {
+//   date: moment("02-01-2023", HOLIDAY_DATE_FORMAT),
+//   wfhTeam: WfhTeamEnum.C,
+// };
 
 export const initialize = async () => {
   await initializeFullYear();
+// export const initialize = () => {
+//   initializeFullYear();
   initializeMonth();
   // initializeFullYear().then( () => {
   //   initializeMonth();
@@ -63,6 +66,9 @@ export const initializeMonth = () => {
 };
 
 export const initializeFullYear = async () => {
+// export const initializeFullYear = () => {
+  const baseWfhDate = getBaseWfhDate();
+
   if (yearlyDayModel.length != 0) return yearlyDayModel;
   const year = todayYear();
 
@@ -93,10 +99,14 @@ export const initializeFullYear = async () => {
 
   // same or after base date
   // currDate = moment(baseWfhDate.date);
-  let currWfh: WfhTeamEnum = baseWfhDate.wfhTeam;
+  // let currWfh: WfhTeamEnum = baseWfhDate.wfhTeam;
+  currDate = moment(baseWfhDate.date);
+  let currWfh: Team = baseWfhDate.wfhTeam;
   
   while (currDate.isBefore(getMonthLastWorkDay(lastDayOfYear(year)))) {
     let holidayName = isHolidayCheck(currDate, holidayList);
+
+  // while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
       date    : moment(currDate),
       holidays: (holidayName.length > 0) ? holidayName[0].name: undefined,
@@ -111,7 +121,8 @@ export const initializeFullYear = async () => {
       currDate.isoWeekday() != 7 &&
       !currDate.isBefore(baseWfhDate.date)
     ) {
-      currWfh = getNextWfhTeam(currWfh) as WfhTeamEnum;
+      currWfh = getNextWfhTeam(currWfh) as Team;
+
       currDayModel.wfhTeam = currWfh;
     }
     yearlyDayModel.push(currDayModel);
