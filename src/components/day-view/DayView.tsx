@@ -8,17 +8,17 @@ import TodaySign from "./TodaySign";
 import { isHoliday } from "@/services/HolidayService";
 
 const DayView: React.FC<{
-  date: Moment;
-  holidays?: Holiday[];
-  month: MonthEnum;
-  wfhTeam?: WfhTeamEnum;
+  date     : Moment;
+  holidays?: string;
+  month    : MonthEnum;
+  wfhTeam ?: WfhTeamEnum;
 }> = (props) => {
   const generateDayViewClassName = () => {
     let defaultClass =
       "day-view relative rounded-lg hover:transition-all duration-150 cursor-pointer";
 
     if (isDateInMonth(props.date, props.month)) {
-      if (isHoliday(props.date))
+      if (props.holidays !== undefined)
         return defaultClass + " bg-red-700 text-slate-100";
 
       if (props.wfhTeam === WfhTeamEnum.A)
@@ -48,17 +48,17 @@ const DayView: React.FC<{
       return defaultClass + " bg-sky-800 text-sky-400 hover:bg-sky-200";
     }
 
-    if (isHoliday(props.date))
+    if (isHoliday(props.holidays))
       return defaultClass + " bg-red-950 text-red-300 hover:bg-red-800";
 
     return defaultClass + " bg-sky-950 text-sky-300 hover:bg-sky-800";
   };
-
+  
   return (
     <div className={generateDayViewClassName()}>
       {isDateSame(props.date, today()) && <TodaySign />}
       <p className="font-bold m-3">{props.date.date()}</p>
-      {!isHoliday(props.date) && props.wfhTeam && (
+      {!isHoliday(props.holidays) && props.wfhTeam && (
         <WfoCover wfhTeam={props.wfhTeam} />
       )}
     </div>

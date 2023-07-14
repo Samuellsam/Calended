@@ -44,3 +44,16 @@ export const isDateInMonth = (date: Moment, mont: MonthEnum) => {
   let month = parseInt(mont);
   return date.get("month") === month;
 };
+
+export const getMonthLastWorkDay = (date: Moment) => {
+  let workday = moment(date).endOf("months");
+  let day     = workday.day();
+  let diff    = 0;              // returns yesterday
+  if (day == 7){  // is Sunday or Monday
+    diff = diff + 1;  // returns Friday
+  }
+  else if (day == 0){
+    diff = diff + 2;
+  }
+  return workday.subtract(diff, 'days');
+}

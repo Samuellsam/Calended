@@ -16,18 +16,30 @@ const MonthView: React.FC<{
   const [monthCalendar, setMonthCalendar] = useState([] as DayModel[]);
 
   useEffect(() => {
-    setMonthCalendar(getMonthCalendar(props.month, props.year) ?? []);
+
+    // let isSubscribed = true;
+    const callMonthAPI = async () => {
+      const data = await getMonthCalendar(props.month, props.year) ?? [];
+      // if (isSubscribed) {
+        setMonthCalendar(data);
+      // }
+    }
+    
+    // setMonthCalendar(getMonthCalendar(props.month, props.year) ?? []);
+    callMonthAPI().catch(console.error);
+    
+    // return () => {isSubscribed = false};
   }, [props.month, props.year]);
 
   const generateDayCalendarItem = () => {
     const dayCalendarItem: ReactNode[] = monthCalendar.map((dayModel, idx) => {
       return (
         <DayView
-          key={idx}
-          date={moment(dayModel.date)}
-          holidays={dayModel.holidays}
-          month={props.month as MonthEnum}
-          wfhTeam={dayModel.wfhTeam}
+          key      = {idx}
+          date     = {moment(dayModel.date)}
+          holidays = {dayModel.holidays}
+          month    = {props.month as MonthEnum}
+          wfhTeam  = {dayModel.wfhTeam}
         />
       );
     });

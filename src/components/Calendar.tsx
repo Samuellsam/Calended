@@ -10,7 +10,7 @@ import { Moment } from "moment";
 export interface DayModel {
   date: Moment;
   wfhTeam?: WfhTeamEnum | undefined;
-  holidays?: Holiday[];
+  holidays?: string | undefined;
 }
 
 const Calendar: React.FC<{
