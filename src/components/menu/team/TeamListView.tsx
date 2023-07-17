@@ -1,5 +1,4 @@
 import { Team } from "@/interfaces/Team";
-import { Teams } from "@/services/TeamService";
 
 const TeamListItem: React.FC<{
   team: Team;
@@ -18,7 +17,9 @@ const TeamListItem: React.FC<{
   );
 };
 
-const TeamListView: React.FC<{}> = () => {
+const TeamListView: React.FC<{
+  teams: Team[];
+}> = (props) => {
   return (
     <div
       className="overflow-y-auto"
@@ -26,7 +27,7 @@ const TeamListView: React.FC<{}> = () => {
         height: "300px",
       }}
     >
-      {Teams.map((t) => (
+      {props.teams.map((t) => (
         <TeamListItem team={t} key={t.order} />
       ))}
     </div>

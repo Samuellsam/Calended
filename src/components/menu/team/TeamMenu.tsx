@@ -12,6 +12,7 @@ import {
 } from "@/interfaces/AlertModel";
 import CalendedAlert from "@/components/form/CalendedAlert";
 import TeamListView from "./TeamListView";
+import { Team } from "@/interfaces/Team";
 
 interface TeamCreateForm {
   name: string | null;
@@ -27,6 +28,23 @@ const TeamMenu: React.FC<{
   });
 
   const [alert, setAlertMsg] = useState<AlertModel | undefined>();
+
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  useEffect(() => {
+    fetchTeams();
+  }, []);
+
+  const fetchTeams = async () => {
+    try {
+      const response = await axios.get("/api/team/get-all");
+      setTeams(response.data.data.teams);
+    } catch (error) {
+      console.log(error);
+    }
+
+    return [];
+  };
 
   const updateForm = (newValue: string | null, attr: string) => {
     setTeamCreateForm({
@@ -47,6 +65,7 @@ const TeamMenu: React.FC<{
         name: teamCreateForm.name,
         color: teamCreateForm.color,
       });
+      await fetchTeams();
       setAlertMsg({
         message: `${response.status} - ${response.data.message}`.toUpperCase(),
         type: SUCCESS_ALERT,
@@ -89,7 +108,7 @@ const TeamMenu: React.FC<{
         <CalendedSubmitButton value="Add Team" />
       </CalendedForm>
       <hr className="m-1" />
-      <TeamListView />
+      <TeamListView teams={teams} />
     </>
   );
 };
