@@ -17,21 +17,4 @@ const TeamListItem: React.FC<{
   );
 };
 
-const TeamListView: React.FC<{
-  teams: Team[];
-}> = (props) => {
-  return (
-    <div
-      className="overflow-y-auto"
-      style={{
-        height: "300px",
-      }}
-    >
-      {props.teams.map((t) => (
-        <TeamListItem team={t} key={t.order} />
-      ))}
-    </div>
-  );
-};
-
-export default TeamListView;
+export default TeamListItem;

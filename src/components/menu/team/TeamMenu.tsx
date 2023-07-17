@@ -11,8 +11,9 @@ import {
   SUCCESS_ALERT,
 } from "@/interfaces/AlertModel";
 import CalendedAlert from "@/components/form/CalendedAlert";
-import TeamListView from "./TeamListView";
 import { Team } from "@/interfaces/Team";
+import CalendedListView from "../CalendedListView";
+import TeamListItem from "./TeamListItem";
 
 interface TeamCreateForm {
   name: string | null;
@@ -108,7 +109,11 @@ const TeamMenu: React.FC<{
         <CalendedSubmitButton value="Add Team" />
       </CalendedForm>
       <hr className="m-1" />
-      <TeamListView teams={teams} />
+      <CalendedListView>
+        {teams.map((t) => (
+          <TeamListItem team={t} key={t.order} />
+        ))}
+      </CalendedListView>
     </>
   );
 };
