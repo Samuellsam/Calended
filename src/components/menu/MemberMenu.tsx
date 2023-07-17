@@ -1,9 +1,10 @@
-import CalendedSelect from "../form/CalendedSelect";
+import CalendedSelect, { DropdownModel } from "../form/CalendedSelect";
 import CalendedTextInput from "../form/CalendedTextInput";
 import CalendedSubmitButton from "../form/CalendedSubmitButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalendedForm from "../form/CalendedForm";
 import { Team } from "@/interfaces/Team";
+import axios from "axios";
 
 interface MemberCreateForm {
   name: string | null;
@@ -17,6 +18,30 @@ const MemberMenu: React.FC<{
     name: null,
     teamName: null,
   });
+
+  const [teamOptions, setTeamOptions] = useState<DropdownModel[]>([]);
+
+  useEffect(() => {
+    fetchTeamOptions();
+  }, []);
+
+  const fetchTeamOptions = async () => {
+    try {
+      const response = await axios.get("/api/team/get-all");
+      setTeamOptions(
+        response.data.data.teams.map((team: Team) => {
+          return {
+            name: team.name,
+            value: team.name,
+          } as DropdownModel;
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    return [];
+  };
 
   const updateForm = (newValue: string | null | Team, attr: string) => {
     setMemberCreateForm({
@@ -44,24 +69,7 @@ const MemberMenu: React.FC<{
           onChange={(e) =>
             updateForm(e.target.value ? e.target.value : null, "teamName")
           }
-          options={[
-            {
-              name: "A",
-              value: "A",
-            },
-            {
-              name: "B",
-              value: "B",
-            },
-            {
-              name: "C",
-              value: "C",
-            },
-            {
-              name: "D",
-              value: "D",
-            },
-          ]}
+          options={teamOptions}
         />
       </div>
       <CalendedSubmitButton value="Add Member" />

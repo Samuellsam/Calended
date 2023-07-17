@@ -3,6 +3,7 @@ import { Team } from "@/interfaces/Team";
 import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
+import { v4 as uuid } from "uuid";
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,6 +22,7 @@ export default async function handler(
     }
 
     const team: Team = {
+      id: uuid(),
       name: req.body["name"],
       color: req.body["color"],
       order: newTeam.length,

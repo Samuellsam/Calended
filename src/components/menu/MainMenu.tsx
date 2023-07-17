@@ -14,20 +14,20 @@ const MainMenu: React.FC<{
         {/* <MenuItem
           name="Off Day"
           onClick={() => props.onMenuSelect(MenuEnum.OFF_DAY)}
-        />
+        /> */}
         <MenuItem
           name="Member"
           onClick={() => props.onMenuSelect(MenuEnum.MEMBER)}
         />
-        <MenuItem
+        {/* <MenuItem
           name="Base Date"
           onClick={() => props.onMenuSelect(MenuEnum.BASE_DATE)}
-        />
-        <MenuItem
+        /> */}
+        {/* <MenuItem
           name="Birthday"
           onClick={() => props.onMenuSelect(MenuEnum.BIRTHDAY)}
-        />
-        <MenuItem
+        /> */}
+        {/* <MenuItem
           name="Export"
           onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}
         /> */}
