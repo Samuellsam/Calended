@@ -11,7 +11,7 @@ const DayView: React.FC<{
   date: Moment;
   holidays?: Holiday[];
   month: MonthEnum;
-  wfhTeam?: Team;
+  wfhTeam?: WfhTeamEnum;
 }> = (props) => {
   const generateDayViewClassName = () => {
     let defaultClass =

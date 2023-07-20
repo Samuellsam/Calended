@@ -9,7 +9,7 @@ import { Team } from "@/interfaces/Team";
 
 export interface DayModel {
   date: Moment;
-  wfhTeam?: Team | undefined;
+  wfhTeam?: WfhTeamEnum | undefined;
   holidays?: Holiday[];
 }
 

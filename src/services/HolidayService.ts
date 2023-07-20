@@ -66,8 +66,8 @@ const holidays: Holiday[] = [
     type: HolidayEnum.HOLIDAY,
   },
   {
-    from: moment("28-06-2023", HOLIDAY_DATE_FORMAT),
-    to: moment("30-06-2023", HOLIDAY_DATE_FORMAT),
+    from: moment("29-06-2023", HOLIDAY_DATE_FORMAT),
+    to: moment("29-06-2023", HOLIDAY_DATE_FORMAT),
     name: "Hari Raya Idul Adha 1444 Hijriah",
     type: HolidayEnum.HOLIDAY,
   },
