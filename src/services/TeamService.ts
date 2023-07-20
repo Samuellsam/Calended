@@ -1,31 +1,6 @@
 import { Team } from "@/interfaces/Team";
 
-export const Teams: Team[] = [
-  {
-    name: "A",
-    member: [],
-    order: 1,
-    color: "#FDE68A",
-  },
-  {
-    name: "B",
-    member: [],
-    order: 2,
-    color: "#BEF264",
-  },
-  {
-    name: "C",
-    member: [],
-    order: 3,
-    color: "#F97316",
-  },
-  {
-    name: "D",
-    member: [],
-    order: 4,
-    color: "#67E8F9",
-  },
-];
+export const Teams: Team[] = [];
 
 export const getWfoTeam = (wfhTeam: Team) => {
   let wfo = "";
