@@ -66,8 +66,8 @@ const holidays: Holiday[] = [
     type: HolidayEnum.HOLIDAY,
   },
   {
-    from: moment("28-06-2023", HOLIDAY_DATE_FORMAT),
-    to: moment("30-06-2023", HOLIDAY_DATE_FORMAT),
+    from: moment("29-06-2023", HOLIDAY_DATE_FORMAT),
+    to: moment("29-06-2023", HOLIDAY_DATE_FORMAT),
     name: "Hari Raya Idul Adha 1444 Hijriah",
     type: HolidayEnum.HOLIDAY,
   },
@@ -132,66 +132,20 @@ export const save = (holidays: Holiday[]) => {
 };
 
 export const getAllHolidays = (): Holiday[] => {
-  // const options = {
-  //   // The method is POST because we are sending data.
-  //   method: 'GET',
-  //   // Tell the server we're sending JSON.
-  //   headers: {
-  //     'Content-Type'                : 'application/json',
-  //     'Access-Control-Allow-Origin' : '*',
-  //     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-  //   },
-  //   // Body of the request is the JSON data we created above.
-  // }
-
-  // const response = await fetch('/api/holiday/get-all', options)
-  // const result   = await response.json()
-  // console.log(result);
-  
   return holidays;
 };
 
-export const getHolidaysByDate = async (date?: Moment) => {
-
-  const options = {
-    // The method is POST because we are sending data.
-    method: 'GET',
-    // Tell the server we're sending JSON.
-    headers: {
-      'Content-Type'                : 'application/json',
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    },
-    // Body of the request is the JSON data we created above.
-  }
-
-  const response = await fetch('/api/holiday/get-all', options)
-  const result   = await response.json()
-  // return result;
-  // console.log(result);
-  const holidays = result.data.holidays;
-  // console.log(result.data.holidays);
-  return holidays;
-  // return holidays.filter((holiday: Holiday) =>
-  //   date.isBetween(holiday.from, holiday.to, "days", "[]")
-  // );
+export const getHolidaysByDate = (date: Moment) => {
+  return holidays.filter((holiday) =>
+    date.isBetween(holiday.from, holiday.to, "days", "[]")
+  );
 };
 
-// export const isHoliday = (date: Moment): boolean => {
-export const isHoliday = (holiday: string | undefined): boolean => {
-  return (holiday !== undefined) ? true : false;
-  // return (
-  //   holidays.filter((holiday) =>
-  //     date.isBetween(holiday.from, holiday.to, "days", "[]")
-  //   ).length > 0
-  // );
-};
-
-export const isHolidayCheck = (date: Moment, holidays: Holiday[]): Holiday[] => {
+export const isHoliday = (date: Moment): boolean => {
   return (
     holidays.filter((holiday) =>
       date.isBetween(holiday.from, holiday.to, "days", "[]")
-    )
+    ).length > 0
   );
 };
 

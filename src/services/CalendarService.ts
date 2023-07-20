@@ -2,14 +2,12 @@ import moment, { Moment } from "moment";
 import {
   HOLIDAY_DATE_FORMAT,
   isHoliday,
-  isHolidayCheck,
 } from "./HolidayService";
 import { getHolidaysByDate } from "./HolidayService";
 import { DayModel } from "@/components/Calendar";
 import {
   firstDayOfMonth,
   firstDayOfYear,
-  getMonthLastWorkDay,
   lastDayOfMonth,
   lastDayOfYear,
   todayYear,
@@ -22,7 +20,6 @@ import { Team } from "@/interfaces/Team";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
-import { Holiday } from "@/interfaces/Holiday";
 
 // const baseWfhDate: BaseWfhDateModel = {
 //   date: moment("02-01-2023", HOLIDAY_DATE_FORMAT),
@@ -33,30 +30,15 @@ export const initialize = async () => {
   await initializeFullYear();
 // export const initialize = () => {
 //   initializeFullYear();
+export const initialize = () => {
+  initializeFullYear();
   initializeMonth();
-  // initializeFullYear().then( () => {
-  //   initializeMonth();
-  // });
 };
 
 export const initializeMonth = () => {
   const year = todayYear();
 
   Object.values(MonthEnum).forEach((month) => {
-    // console.log(month);
-
-    // console.log(yearlyDayModel);
-    // console.info((yearlyDayModel.length));
-    // yearlyDayModel.map((day) => console.log(day));
-
-    // console.log(yearlyDayModel[0].date.format("DD-MM-YYYY"));
-    // console.log(month);
-    // console.log(yearlyDayModel.length);
-    // console.log("test sendiri");
-    // console.log(month);
-    // console.log(firstDayOfMonth(month, year).format("DD-MM-YYYY"));
-    // console.log(lastDayOfMonth(month, year).format("DD-MM-YYYY"));
-
     monthlyDayModel[month] = yearlyDayModel.filter(
       (day) =>
         day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
@@ -65,37 +47,24 @@ export const initializeMonth = () => {
   });
 };
 
-export const initializeFullYear = async () => {
-// export const initializeFullYear = () => {
-  const baseWfhDate = getBaseWfhDate();
-
+export const initializeFullYear = () => {
   if (yearlyDayModel.length != 0) return yearlyDayModel;
   const year = todayYear();
 
   // before base date
-  let currDate: Moment       = firstDayOfYear(year);
-  let holidayList: Holiday[] = await getHolidaysByDate();
-  // let holidayList: any[] = [];
-  // getHolidaysByDate().then((data) =>  {
-  //   holidayList = data;
-  //   console.log("hello");
-  //   console.log(data);
-  //   return holidayList;
-  // });
-  // console.log("holiday:");
-  // console.log(holidayList);
+  let currDate: Moment = firstDayOfYear(year);
 
-  // while (currDate.isBefore(moment(baseWfhDate.date))) {
-  //   if (currDate.isSameOrAfter(firstDayOfYear(year))) {
-  //     yearlyDayModel.push({
-  //       date: moment(currDate),
-  //       holidays: getHolidaysByDate(currDate),
-  //       wfhTeam: undefined,
-  //     });
-  //   }
+  while (currDate.isBefore(moment(baseWfhDate.date))) {
+    if (currDate.isSameOrAfter(firstDayOfYear(year))) {
+      yearlyDayModel.push({
+        date: moment(currDate),
+        holidays: getHolidaysByDate(currDate),
+        wfhTeam: undefined,
+      });
+    }
 
-  //   currDate.add(1, "days");
-  // }
+    currDate.add(1, "days");
+  }
 
   // same or after base date
   // currDate = moment(baseWfhDate.date);
@@ -107,10 +76,14 @@ export const initializeFullYear = async () => {
     let holidayName = isHolidayCheck(currDate, holidayList);
 
   // while (currDate.isBefore(lastDayOfYear(year))) {
+  currDate = moment(baseWfhDate.date);
+  let currWfh: WfhTeamEnum = baseWfhDate.wfhTeam;
+
+  while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
-      date    : moment(currDate),
-      holidays: (holidayName.length > 0) ? holidayName[0].name: undefined,
-      wfhTeam : undefined,
+      date: moment(currDate),
+      holidays: getHolidaysByDate(currDate),
+      wfhTeam: undefined,
     };
 
     if (currDate.isSame(moment(baseWfhDate.date)))
@@ -125,16 +98,16 @@ export const initializeFullYear = async () => {
 
       currDayModel.wfhTeam = currWfh;
     }
+
     yearlyDayModel.push(currDayModel);
 
     currDate.add(1, "days");
-    // console.log(currDate.format("DD-MM-YYYY"));
   }
 };
 
-export const getMonthCalendar = async (month: MonthEnum, year: number) => {
+export const getMonthCalendar = (month: MonthEnum, year: number) => {
   if (yearlyDayModel.length == 0) {
-    await initialize();
+    initialize();
   }
 
   return monthlyDayModel[month as MonthEnum];

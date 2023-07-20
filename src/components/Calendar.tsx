@@ -9,8 +9,8 @@ import { Team } from "@/interfaces/Team";
 
 export interface DayModel {
   date: Moment;
-  wfhTeam?: Team | undefined;
-  holidays?: string | undefined;
+  wfhTeam?: WfhTeamEnum | undefined;
+  holidays?: Holiday[];
 }
 
 const Calendar: React.FC<{
