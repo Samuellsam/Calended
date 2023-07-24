@@ -11,7 +11,7 @@ import {
   SUCCESS_ALERT,
 } from "@/interfaces/AlertModel";
 import CalendedAlert from "@/components/form/CalendedAlert";
-import { Team } from "@/interfaces/Team";
+import { SaveTeamRequestModel, Team } from "@/interfaces/Team";
 import CalendedListView from "../CalendedListView";
 import TeamListItem from "./TeamListItem";
 
@@ -39,6 +39,7 @@ const TeamMenu: React.FC<{
   const fetchTeams = async () => {
     try {
       const response = await axios.get("/api/team/get-all");
+      console.log(response);
       setTeams(response.data.data.teams);
     } catch (error) {
       console.log(error);
@@ -65,7 +66,7 @@ const TeamMenu: React.FC<{
       const response = await axios.post("/api/team/save", {
         name: teamCreateForm.name,
         color: teamCreateForm.color,
-      });
+      } as SaveTeamRequestModel);
       await fetchTeams();
       setAlertMsg({
         message: `${response.status} - ${response.data.message}`.toUpperCase(),

@@ -5,10 +5,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
 import { v4 as uuid } from "uuid";
 import moment from "moment";
+import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Response>
 ) {
   if (req.method === "POST") {
     let newTeams: Team[] = [];
@@ -18,22 +19,22 @@ export default async function handler(
       "utf-8"
     );
 
+    if (req.body["name"] == null || req.body["name"] == "") {
+      return res
+        .status(400)
+        .json({ message: "Member name cant be null" } as Response);
+    }
+    if (req.body["birthday"] == null) {
+      return res
+        .status(400)
+        .json({ message: "Member birthday cant be null" } as Response);
+    }
+
     const member: Member = {
       id: uuid(),
       name: req.body["name"],
       birthday: req.body["birthday"],
     };
-
-    if (member.name == null || member.name == "") {
-      return res
-        .status(400)
-        .json({ message: "Member name cant be null" } as Response);
-    }
-    if (member.birthday == null) {
-      return res
-        .status(400)
-        .json({ message: "Member birthday cant be null" } as Response);
-    }
 
     if (existingTeams) {
       newTeams = JSON.parse(existingTeams) as Team[];
@@ -48,9 +49,9 @@ export default async function handler(
 
       res
         .status(200)
-        .json({ message: "Member stored successfully" } as Response);
+        .json({ data: null, message: "Member stored successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" } as Response);
+      res.status(500).json({ data: null, message: INTERNAL_SERVER_ERROR_MSG });
     }
   }
 }

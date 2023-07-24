@@ -4,12 +4,24 @@ import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
 import { v4 as uuid } from "uuid";
+import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Response>
 ) {
   if (req.method === "POST") {
+    if (req.body["name"] == null || req.body["name"] == "") {
+      return res
+        .status(400)
+        .json({ data: null, message: "Team name cant be null" });
+    }
+    if (req.body["color"] == null || req.body["color"] == "") {
+      return res
+        .status(400)
+        .json({ data: null, message: "Team color cant be null" });
+    }
+
     let newTeam: Team[] = [];
 
     const existingTeams: string = await fsPromises.readFile(
@@ -19,40 +31,27 @@ export default async function handler(
 
     if (existingTeams) {
       newTeam = JSON.parse(existingTeams) as Team[];
+
+      if (newTeam.filter((t: Team) => t?.name === req.body["name"]).length > 0)
+        return res
+          .status(400)
+          .json({ data: null, message: "Team already exists" });
     }
 
-    const team: Team = {
+    newTeam = newTeam.concat({
       id: uuid(),
       name: req.body["name"],
       color: req.body["color"],
       order: newTeam.length,
       member: [],
-    };
-
-    if (team.name == null || team.name == "") {
-      return res
-        .status(400)
-        .json({ message: "Team name cant be null" } as Response);
-    }
-    if (team.color == null || team.color == "") {
-      return res
-        .status(400)
-        .json({ message: "Team color cant be null" } as Response);
-    }
-    if (newTeam.filter((t: Team) => t?.name === team.name).length > 0) {
-      return res
-        .status(400)
-        .json({ message: "Team already exists" } as Response);
-    }
-
-    newTeam = newTeam.concat(team);
+    });
 
     try {
       await fsPromises.writeFile(TEAM_DATA_PATH, JSON.stringify(newTeam));
 
-      res.status(200).json({ message: "Team stored successfully" } as Response);
+      res.status(200).json({ data: null, message: "Team stored successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" } as Response);
+      res.status(500).json({ data: null, message: INTERNAL_SERVER_ERROR_MSG });
     }
   }
 }

@@ -1,5 +1,3 @@
-import Logo from "@/components/Logo";
-import Calendar from "@/components/Calendar";
 import Menu from "@/components/menu/Menu";
 import FloatMenu from "@/components/float-menu/FloatMenu";
 import { useState } from "react";

@@ -3,7 +3,12 @@ import CalendedTextInput from "../../form/CalendedTextInput";
 import CalendedSubmitButton from "../../form/CalendedSubmitButton";
 import { useEffect, useState } from "react";
 import CalendedForm from "../../form/CalendedForm";
-import { Member, MemberViewModel, Team } from "@/interfaces/Team";
+import {
+  Member,
+  MemberViewModel,
+  SaveMemberRequestModel,
+  Team,
+} from "@/interfaces/Team";
 import axios from "axios";
 import CalendedDatePicker, {
   CALENDED_DATE_PICKER_FORMAT,
@@ -110,7 +115,7 @@ const MemberMenu: React.FC<{
           CALENDED_DATE_PICKER_FORMAT
         ),
         teamId: memberCreateForm.teamId,
-      });
+      } as SaveMemberRequestModel);
       await fetchMembers();
       setAlertMsg({
         message: `${response.status} - ${response.data.message}`.toUpperCase(),
