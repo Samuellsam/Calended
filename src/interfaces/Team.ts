@@ -14,3 +14,11 @@ export interface Team {
   order: number;
   color: string;
 }
+
+export interface MemberViewModel {
+  id: string;
+  name: string;
+  birthday: Moment;
+  teamName: string;
+  teamColor: string;
+}

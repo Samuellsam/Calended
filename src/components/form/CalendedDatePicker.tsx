@@ -1,6 +1,6 @@
 import CalendedInputHeader from "./CalendedInputHeader";
 
-export const CALENDED_DATE_PICKER_FORMAT: string = "yyyy-mm-dd";
+export const CALENDED_DATE_PICKER_FORMAT: string = "YYYY-MM-DD";
 
 const CalendedDatePicker: React.FC<{
   placeholder?: string;

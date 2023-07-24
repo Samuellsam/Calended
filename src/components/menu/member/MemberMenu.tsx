@@ -3,7 +3,7 @@ import CalendedTextInput from "../../form/CalendedTextInput";
 import CalendedSubmitButton from "../../form/CalendedSubmitButton";
 import { useEffect, useState } from "react";
 import CalendedForm from "../../form/CalendedForm";
-import { Member, Team } from "@/interfaces/Team";
+import { Member, MemberViewModel, Team } from "@/interfaces/Team";
 import axios from "axios";
 import CalendedDatePicker, {
   CALENDED_DATE_PICKER_FORMAT,
@@ -17,7 +17,7 @@ import {
 } from "@/interfaces/AlertModel";
 import CalendedListView from "../CalendedListView";
 import MemberListItem from "./MemberListItem";
-import moment, { Moment } from "moment";
+import moment, { Moment, isMoment } from "moment";
 
 interface MemberCreateForm {
   name: string | null;
@@ -38,7 +38,7 @@ const MemberMenu: React.FC<{
 
   const [alert, setAlertMsg] = useState<AlertModel | undefined>();
 
-  const [members, setMembers] = useState<Member[]>([]);
+  const [members, setMembers] = useState<MemberViewModel[]>([]);
 
   useEffect(() => {
     fetchMembers();
@@ -48,7 +48,15 @@ const MemberMenu: React.FC<{
   const fetchMembers = async () => {
     try {
       const response = await axios.get("/api/member/get-all");
-      setMembers(response.data.data.members);
+      const members: Member[] = response.data.data.members;
+      setMembers(
+        members.map((m) => {
+          return {
+            ...m,
+            birthday: moment(m.birthday, CALENDED_DATE_PICKER_FORMAT),
+          } as MemberViewModel;
+        })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +106,9 @@ const MemberMenu: React.FC<{
     try {
       const response = await axios.post("/api/member/save", {
         name: memberCreateForm.name,
-        birthday: memberCreateForm.birthday?.toISOString(),
+        birthday: memberCreateForm.birthday?.format(
+          CALENDED_DATE_PICKER_FORMAT
+        ),
         teamId: memberCreateForm.teamId,
       });
       await fetchMembers();
@@ -135,7 +145,7 @@ const MemberMenu: React.FC<{
               header="Team"
               mandatory={true}
               onChange={(e) =>
-                updateForm(e.target.value ? e.target.value : null, "teamName")
+                updateForm(e.target.value ? e.target.value : null, "teamId")
               }
               options={teamOptions}
             />
