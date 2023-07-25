@@ -19,18 +19,10 @@ const MainMenu: React.FC<{
           name="Member"
           onClick={() => props.onMenuSelect(MenuEnum.MEMBER)}
         />
-        {/* <MenuItem
+        <MenuItem
           name="Base Date"
           onClick={() => props.onMenuSelect(MenuEnum.BASE_DATE)}
-        /> */}
-        {/* <MenuItem
-          name="Birthday"
-          onClick={() => props.onMenuSelect(MenuEnum.BIRTHDAY)}
-        /> */}
-        {/* <MenuItem
-          name="Export"
-          onClick={() => props.onMenuSelect(MenuEnum.EXPORT)}
-        /> */}
+        />
       </div>
     </>
   );

@@ -11,8 +11,6 @@ import TeamMenu from "./team/TeamMenu";
 import OffDayMenu from "./OffDayMenu";
 import MemberMenu from "./member/MemberMenu";
 import BaseDateMenu from "./BaseDateMenu";
-import ExportMenu from "./ExportMenu";
-import BirthDayMenu from "./BirthdayMenu";
 
 const Menu: React.FC<{}> = () => {
   const [isShowed, setIsShowed] = useState<boolean>(false);
@@ -58,9 +56,6 @@ const Menu: React.FC<{}> = () => {
     if (currMenu == MenuEnum.MEMBER) return <MemberMenu onBack={backMenu} />;
     if (currMenu == MenuEnum.BASE_DATE)
       return <BaseDateMenu onBack={backMenu} />;
-    if (currMenu == MenuEnum.BIRTHDAY)
-      return <BirthDayMenu onBack={backMenu} />;
-    if (currMenu == MenuEnum.EXPORT) return <ExportMenu onBack={backMenu} />;
 
     return <></>;
   };

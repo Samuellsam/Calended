@@ -4,6 +4,4 @@ export const enum MenuEnum {
   OFF_DAY,
   MEMBER,
   BASE_DATE,
-  BIRTHDAY,
-  EXPORT,
 }
