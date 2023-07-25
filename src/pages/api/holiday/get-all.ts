@@ -3,10 +3,11 @@ import { Holiday } from "@/interfaces/Holiday";
 import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
+import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message.js";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Response>
 ) {
   if (req.method === "GET") {
     let holidays: Holiday[] = [];
@@ -19,9 +20,9 @@ export default async function handler(
     if (existingHolidays) holidays = JSON.parse(existingHolidays);
 
     try {
-      res.status(200).json({ data: { holidays: holidays } } as Response);
+      res.status(200).json({ data: { holidays }, message: "" });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" } as Response);
+      res.status(500).json({ data: null, message: INTERNAL_SERVER_ERROR_MSG });
     }
   }
 }

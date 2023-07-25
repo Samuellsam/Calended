@@ -10,7 +10,7 @@ import MainMenu from "./MainMenu";
 import TeamMenu from "./team/TeamMenu";
 import OffDayMenu from "./OffDayMenu";
 import MemberMenu from "./member/MemberMenu";
-import BaseDateMenu from "./BaseDateMenu";
+import BaseDateMenu from "./base-date/BaseDateMenu";
 
 const Menu: React.FC<{}> = () => {
   const [isShowed, setIsShowed] = useState<boolean>(false);

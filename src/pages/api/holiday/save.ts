@@ -3,6 +3,7 @@ import { Holiday } from "@/interfaces/Holiday";
 import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
+import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message.js";
 
 interface SaveHolidayRequest {
   holidays: Holiday[];
@@ -10,7 +11,7 @@ interface SaveHolidayRequest {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<Response>
 ) {
   if (req.method === "POST") {
     let newHolidays: Holiday[] = [];
@@ -35,9 +36,9 @@ export default async function handler(
 
       res
         .status(200)
-        .json({ message: "Holiday stored successfully" } as Response);
+        .json({ data: null, message: "Holiday stored successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Internal server error" } as Response);
+      res.status(500).json({ data: null, message: INTERNAL_SERVER_ERROR_MSG });
     }
   }
 }
