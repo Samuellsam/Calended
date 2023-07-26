@@ -98,9 +98,11 @@ const BaseDateMenu: React.FC<{
 
     try {
       const response = await axios.post("/api/base-date/save", {
-        baseDate: baseDateCreateForm.baseDate,
+        baseDate: baseDateCreateForm.baseDate?.format(
+          CALENDED_DATE_PICKER_FORMAT
+        ),
         wfhTeamId: baseDateCreateForm.wfhTeamId,
-      } as BaseDateCreateForm);
+      });
       await fetchBaseDate();
       setAlertMsg({
         message: `${response.status} - ${response.data.message}`.toUpperCase(),

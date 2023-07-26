@@ -14,7 +14,9 @@ const MonthView: React.FC<{
   const [monthCalendar, setMonthCalendar] = useState([] as DayModel[]);
 
   useEffect(() => {
-    setMonthCalendar(getMonthCalendar(props.month, props.year) ?? []);
+    (async () => {
+      setMonthCalendar((await getMonthCalendar(props.month, props.year)) ?? []);
+    })();
   }, [props.month, props.year]);
 
   const generateDayCalendarItem = () => {

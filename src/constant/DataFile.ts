@@ -16,5 +16,5 @@ export const MEMBER_DATA_PATH = path.join(
 
 export const BASE_DATE_DATA_PATH = path.join(
   CURR_WORK_DIR,
-  "data/BASE_DATA_DATE.json"
+  "data/BASE_DATE_DATA.json"
 );

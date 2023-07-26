@@ -10,15 +10,15 @@ import {
 } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
 import { MonthlyDayModel } from "@/interfaces/MonthlyDayModel";
-import { getBaseWfhDate } from "./BaseWfhDateService";
+import { getBaseDate } from "./BaseDateService";
 import { getNextWfhTeam } from "./TeamService";
 import { Team } from "@/interfaces/Team";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
 
-export const initialize = () => {
-  initializeFullYear();
+export const initialize = async () => {
+  await initializeFullYear();
   initializeMonth();
 };
 
@@ -34,8 +34,8 @@ export const initializeMonth = () => {
   });
 };
 
-export const initializeFullYear = () => {
-  const baseWfhDate = getBaseWfhDate();
+export const initializeFullYear = async () => {
+  const baseWfhDate = await getBaseDate();
 
   if (yearlyDayModel.length != 0) return yearlyDayModel;
   const year = todayYear();
@@ -57,7 +57,7 @@ export const initializeFullYear = () => {
 
   // same or after base date
   currDate = moment(baseWfhDate.date);
-  let currWfh: Team = baseWfhDate.wfhTeam;
+  let currWfh: Team = baseWfhDate.wfhTeam as Team;
 
   while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
@@ -85,9 +85,9 @@ export const initializeFullYear = () => {
   }
 };
 
-export const getMonthCalendar = (month: MonthEnum, year: number) => {
+export const getMonthCalendar = async (month: MonthEnum, year: number) => {
   if (yearlyDayModel.length == 0) {
-    initialize();
+    await initialize();
   }
 
   return monthlyDayModel[month as MonthEnum];

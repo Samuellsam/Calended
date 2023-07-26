@@ -2,6 +2,8 @@ import Menu from "@/components/menu/Menu";
 import FloatMenu from "@/components/float-menu/FloatMenu";
 import { useState } from "react";
 import { CalendarViewEnum } from "@/enums/CalendarViewEnum";
+import Logo from "@/components/Logo";
+import Calendar from "@/components/Calendar";
 
 const HomePage: React.FC<{}> = () => {
   const [calendarView, setCalendarView] = useState(CalendarViewEnum.MONTH_VIEW);
