@@ -14,6 +14,7 @@ import { getBaseDate } from "./BaseDateService";
 import { getNextWfhTeam, getTeamById } from "./TeamService";
 import { Team } from "@/interfaces/Team";
 import { BaseDate } from "@/interfaces/BaseDateModel.js";
+import axios from "axios";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
@@ -35,8 +36,11 @@ export const initializeMonth = () => {
 };
 
 export const initializeFullYear = async () => {
+  const response = await axios.get("/api/team/get-all");
+  const teams: Team[] = response.data.data.teams;
+
   const baseWfhDate: BaseDate = await getBaseDate();
-  const baseDateTeam = await getTeamById(baseWfhDate.wfhTeamId);
+  const baseDateTeam = getTeamById(teams, baseWfhDate.wfhTeamId);
 
   if (baseDateTeam === undefined) return;
 
@@ -77,7 +81,7 @@ export const initializeFullYear = async () => {
       currDate.isoWeekday() != 7 &&
       !currDate.isBefore(baseWfhDate.date)
     ) {
-      currWfh = (await getNextWfhTeam(currWfh)) as Team;
+      currWfh = getNextWfhTeam(teams, currWfh) as Team;
       currDayModel.wfhTeam = currWfh;
     }
 
@@ -90,13 +94,7 @@ export const initializeFullYear = async () => {
 export const getMonthCalendar = async (month: MonthEnum, year: number) => {
   if (yearlyDayModel.length == 0) {
     await initialize();
+    initializeMonth();
   }
-  initializeMonth();
   return monthlyDayModel[month as MonthEnum];
-  // await initialize();
-  // return yearlyDayModel.filter(
-  //   (day) =>
-  //     day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
-  //     day.date.isBefore(lastDayOfMonth(month, year))
-  // );
 };

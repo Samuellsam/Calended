@@ -1,15 +1,32 @@
 import { Team } from "@/interfaces/Team";
 import { getWfoTeam } from "@/services/TeamService";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const WfoCover: React.FC<{
   wfhTeam: Team;
 }> = (props) => {
   const [wfoTeam, setWfoTeam] = useState<string>("");
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  useEffect(() => {
+    fetchTeams();
+  }, []);
+
+  const fetchTeams = async () => {
+    try {
+      const response = await axios.get("/api/team/get-all");
+      setTeams(response.data.data.teams);
+    } catch (error) {
+      console.log(error);
+    }
+
+    return [];
+  };
 
   useEffect(() => {
     (async () => {
-      setWfoTeam(await getWfoTeam(props.wfhTeam));
+      setWfoTeam(getWfoTeam(teams, props.wfhTeam));
     })();
   });
 

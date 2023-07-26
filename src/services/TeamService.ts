@@ -1,37 +1,6 @@
 import { Team } from "@/interfaces/Team";
-import axios from "axios";
 
-// export const Teams: Team[] = [
-//   {
-//     name: "A",
-//     member: [],
-//     order: 1,
-//     color: "#FDE68A",
-//   },
-//   {
-//     name: "B",
-//     member: [],
-//     order: 2,
-//     color: "#BEF264",
-//   },
-//   {
-//     name: "C",
-//     member: [],
-//     order: 3,
-//     color: "#F97316",
-//   },
-//   {
-//     name: "D",
-//     member: [],
-//     order: 4,
-//     color: "#67E8F9",
-//   },
-// ];
-
-export const getWfoTeam = async (wfhTeam: Team) => {
-  const response = await axios.get("/api/team/get-all");
-  const teams: Team[] = response.data.data.teams;
-
+export const getWfoTeam = (teams: Team[], wfhTeam: Team) => {
   let wfo = "";
 
   let currWfhTeam: Team | undefined = wfhTeam;
@@ -39,7 +8,7 @@ export const getWfoTeam = async (wfhTeam: Team) => {
   if (!currWfhTeam) return "";
 
   do {
-    currWfhTeam = await getNextWfhTeam(currWfhTeam);
+    currWfhTeam = getNextWfhTeam(teams, currWfhTeam);
 
     if (!currWfhTeam) return "";
 
@@ -49,14 +18,11 @@ export const getWfoTeam = async (wfhTeam: Team) => {
   return wfo;
 };
 
-export const getNextWfhTeam = async (wfhTeam: Team) => {
-  const response = await axios.get("/api/team/get-all");
-  const teams: Team[] = response.data.data.teams;
-
+export const getNextWfhTeam = (teams: Team[], wfhTeam: Team) => {
   if (wfhTeam === undefined) return;
 
   if (wfhTeam.order == teams.length - 1) {
-    const firstTeam = await getTeamByOrder(0);
+    const firstTeam = getTeamByOrder(teams, 0);
 
     if (!firstTeam) return undefined;
 
@@ -70,21 +36,14 @@ export const getNextWfhTeam = async (wfhTeam: Team) => {
   return nextWfhTeam;
 };
 
-export const getTeamByOrder = async (order: number) => {
-  const response = await axios.get("/api/team/get-all");
-  const teams: Team[] = response.data.data.teams;
-
-  return teams.find((team) => team.order == order);
+export const getTeamByOrder = (teams: Team[], order: number) => {
+  return teams.find((t) => t.order == order);
 };
 
-export const getTeamByName = async (name: string) => {
-  const response = await axios.get("/api/team/get-all");
-  const teams: Team[] = response.data.data.teams;
-
-  return teams.find((team) => team.name == name);
+export const getTeamByName = (teams: Team[], name: string) => {
+  return teams.find((t) => t.name == name);
 };
 
-export const getTeamById = async (id: string) => {
-  const getTeamResponse = await axios.get("/api/team/get-all");
-  return getTeamResponse.data.data.teams.find((t: Team) => t.id === id);
+export const getTeamById = (teams: Team[], id: string) => {
+  return teams.find((t: Team) => t.id === id);
 };
