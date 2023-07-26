@@ -11,15 +11,15 @@ import {
 import { MonthEnum } from "@/enums/MonthEnum";
 import { MonthlyDayModel } from "@/interfaces/MonthlyDayModel";
 import { getBaseDate } from "./BaseDateService";
-import { getNextWfhTeam } from "./TeamService";
+import { getNextWfhTeam, getTeamById } from "./TeamService";
 import { Team } from "@/interfaces/Team";
+import { BaseDate } from "@/interfaces/BaseDateModel.js";
 
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
 
 export const initialize = async () => {
   await initializeFullYear();
-  initializeMonth();
 };
 
 export const initializeMonth = () => {
@@ -35,7 +35,10 @@ export const initializeMonth = () => {
 };
 
 export const initializeFullYear = async () => {
-  const baseWfhDate = await getBaseDate();
+  const baseWfhDate: BaseDate = await getBaseDate();
+  const baseDateTeam = await getTeamById(baseWfhDate.wfhTeamId);
+
+  if (baseDateTeam === undefined) return;
 
   if (yearlyDayModel.length != 0) return yearlyDayModel;
   const year = todayYear();
@@ -57,7 +60,7 @@ export const initializeFullYear = async () => {
 
   // same or after base date
   currDate = moment(baseWfhDate.date);
-  let currWfh: Team = baseWfhDate.wfhTeam as Team;
+  let currWfh: Team = baseDateTeam;
 
   while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
@@ -74,8 +77,7 @@ export const initializeFullYear = async () => {
       currDate.isoWeekday() != 7 &&
       !currDate.isBefore(baseWfhDate.date)
     ) {
-      currWfh = getNextWfhTeam(currWfh) as Team;
-
+      currWfh = (await getNextWfhTeam(currWfh)) as Team;
       currDayModel.wfhTeam = currWfh;
     }
 
@@ -89,6 +91,12 @@ export const getMonthCalendar = async (month: MonthEnum, year: number) => {
   if (yearlyDayModel.length == 0) {
     await initialize();
   }
-
+  initializeMonth();
   return monthlyDayModel[month as MonthEnum];
+  // await initialize();
+  // return yearlyDayModel.filter(
+  //   (day) =>
+  //     day.date.isSameOrAfter(firstDayOfMonth(month, year)) &&
+  //     day.date.isBefore(lastDayOfMonth(month, year))
+  // );
 };

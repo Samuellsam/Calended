@@ -18,6 +18,7 @@ import axios from "axios";
 import CalendedAlert from "@/components/form/CalendedAlert";
 import CalendedListView from "../CalendedListView";
 import BaseDateListItem from "./BaseDateListItem";
+import { getBaseDate } from "@/services/BaseDateService";
 
 interface BaseDateCreateForm {
   baseDate: Moment | null;
@@ -50,8 +51,7 @@ const BaseDateMenu: React.FC<{
 
   const fetchBaseDate = async () => {
     try {
-      const response = await axios.get("/api/base-date/get-all");
-      const baseDate: BaseDate = response.data.data.baseDate;
+      const baseDate: BaseDate = await getBaseDate();
       setBaseDate(baseDate);
     } catch (error) {
       console.log(error);

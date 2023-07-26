@@ -39,7 +39,6 @@ const TeamMenu: React.FC<{
   const fetchTeams = async () => {
     try {
       const response = await axios.get("/api/team/get-all");
-      console.log(response);
       setTeams(response.data.data.teams);
     } catch (error) {
       console.log(error);
