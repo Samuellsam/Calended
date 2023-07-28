@@ -150,7 +150,7 @@ const BaseDateMenu: React.FC<{
       </CalendedForm>
       <hr className="m-1" />
       <CalendedListView>
-        {baseDate && <BaseDateListItem baseDate={baseDate as BaseDate} />}
+        {baseDate && <BaseDateListItem baseDate={baseDate} />}
       </CalendedListView>
     </>
   );

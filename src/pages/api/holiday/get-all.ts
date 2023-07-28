@@ -1,16 +1,16 @@
 import { HOLIDAY_DATA_PATH } from "@/constant/DataFile";
-import { Holiday } from "@/interfaces/Holiday";
+import { OffDay } from "@/interfaces/Holiday";
 import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
-import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message.js";
+import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Response>
 ) {
   if (req.method === "GET") {
-    let holidays: Holiday[] = [];
+    let holidays: OffDay[] = [];
 
     const existingHolidays: string = await fsPromises.readFile(
       HOLIDAY_DATA_PATH,

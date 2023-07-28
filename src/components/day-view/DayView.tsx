@@ -1,4 +1,4 @@
-import { Holiday } from "@/interfaces/Holiday";
+import { OffDay } from "@/interfaces/Holiday";
 import { Moment } from "moment";
 import { isDateInMonth, isDateSame, today } from "@/util/DateUtil";
 import { MonthEnum } from "@/enums/MonthEnum";
@@ -6,13 +6,22 @@ import WfoCover from "./WfoCover";
 import TodaySign from "./TodaySign";
 import { isHoliday } from "@/services/HolidayService";
 import { Team } from "@/interfaces/Team";
+import { useEffect, useState } from "react";
 
 const DayView: React.FC<{
   date: Moment;
-  holidays?: Holiday[];
+  holidays?: OffDay[];
   month: MonthEnum;
   wfhTeam?: Team;
 }> = (props) => {
+  const [isWorkday, setIsWorkday] = useState(false);
+
+  useEffect(() => {
+    setIsWorkday(
+      isDateInMonth(props.date, props.month) && props.wfhTeam !== undefined
+    );
+  }, [props.wfhTeam]);
+
   const generateDayViewClassName = () => {
     let defaultClass =
       "day-view relative rounded-lg hover:transition-all duration-150 cursor-pointer";
@@ -38,10 +47,7 @@ const DayView: React.FC<{
     <div
       className={generateDayViewClassName()}
       style={{
-        background:
-          isDateInMonth(props.date, props.month) && props.wfhTeam
-            ? props.wfhTeam.color
-            : undefined,
+        background: isWorkday ? props.wfhTeam?.color : undefined,
       }}
     >
       {isDateSame(props.date, today()) && <TodaySign />}

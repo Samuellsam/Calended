@@ -1,10 +1,10 @@
 import { HolidayEnum } from "@/enums/HolidayEnum";
-import { Holiday } from "@/interfaces/Holiday";
+import { OffDay } from "@/interfaces/Holiday";
 import moment, { Moment } from "moment";
 
 export const HOLIDAY_DATE_FORMAT = "DD-MM-YYYY";
 
-const holidays: Holiday[] = [
+const holidays: OffDay[] = [
   {
     from: moment("01-01-2023", HOLIDAY_DATE_FORMAT),
     to: moment("01-01-2023", HOLIDAY_DATE_FORMAT),
@@ -127,11 +127,11 @@ const holidays: Holiday[] = [
   },
 ];
 
-export const save = (holidays: Holiday[]) => {
+export const save = (holidays: OffDay[]) => {
   // saveToFile(`../../data/HOLIDAY-DATA.txt`, JSON.stringify(holidays));
 };
 
-export const getAllHolidays = (): Holiday[] => {
+export const getAllHolidays = (): OffDay[] => {
   return holidays;
 };
 

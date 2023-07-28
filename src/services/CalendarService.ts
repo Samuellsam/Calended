@@ -19,10 +19,6 @@ import axios from "axios";
 let yearlyDayModel: DayModel[] = [];
 let monthlyDayModel: MonthlyDayModel = {};
 
-export const initialize = async () => {
-  await initializeFullYear();
-};
-
 export const initializeMonth = () => {
   const year = todayYear();
 
@@ -91,9 +87,13 @@ export const initializeFullYear = async () => {
   }
 };
 
-export const getMonthCalendar = async (month: MonthEnum, year: number) => {
-  if (yearlyDayModel.length == 0) {
-    await initialize();
+export const getMonthCalendar = async (
+  month: MonthEnum,
+  year: number,
+  forceInit: boolean
+) => {
+  if (yearlyDayModel.length == 0 || forceInit == true) {
+    await initializeFullYear();
     initializeMonth();
   }
   return monthlyDayModel[month as MonthEnum];

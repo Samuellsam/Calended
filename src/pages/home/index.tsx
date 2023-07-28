@@ -7,6 +7,7 @@ import Calendar from "@/components/Calendar";
 
 const HomePage: React.FC<{}> = () => {
   const [calendarView, setCalendarView] = useState(CalendarViewEnum.MONTH_VIEW);
+  const [syncCount, setSyncCount] = useState(0);
 
   const toggleCalendarView = () => {
     setCalendarView(
@@ -16,17 +17,22 @@ const HomePage: React.FC<{}> = () => {
     );
   };
 
+  const syncView = () => {
+    setSyncCount(syncCount + 1);
+  };
+
   return (
     <div className="relative">
       <Menu />
       <FloatMenu
         onToggleView={toggleCalendarView}
+        onSyncView={syncView}
         calendarView={calendarView}
       />
-      <div>
+      {/* <div>
         <Logo />
-        <Calendar calendarView={calendarView} />
-      </div>
+        <Calendar calendarView={calendarView} syncCount={syncCount} />
+      </div> */}
     </div>
   );
 };

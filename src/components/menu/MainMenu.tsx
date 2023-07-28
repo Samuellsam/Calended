@@ -11,10 +11,10 @@ const MainMenu: React.FC<{
           name="Team"
           onClick={() => props.onMenuSelect(MenuEnum.TEAM)}
         />
-        {/* <MenuItem
+        <MenuItem
           name="Off Day"
           onClick={() => props.onMenuSelect(MenuEnum.OFF_DAY)}
-        /> */}
+        />
         <MenuItem
           name="Member"
           onClick={() => props.onMenuSelect(MenuEnum.MEMBER)}

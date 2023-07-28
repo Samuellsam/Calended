@@ -4,11 +4,13 @@ import {
   faBacon,
   faBacterium,
   faCalendarDay,
+  faSync,
 } from "@fortawesome/free-solid-svg-icons";
 import { CalendarViewEnum } from "@/enums/CalendarViewEnum";
 
 const FloatMenu: React.FC<{
   onToggleView: () => void;
+  onSyncView: () => void;
   calendarView: CalendarViewEnum;
 }> = (props) => {
   const scrollToToday = () => {
@@ -29,6 +31,9 @@ const FloatMenu: React.FC<{
           ) : (
             <FontAwesomeIcon icon={faBacon} />
           )}
+        </CalendedFloatButton>
+        <CalendedFloatButton onClick={props.onSyncView}>
+          <FontAwesomeIcon icon={faSync} />
         </CalendedFloatButton>
       </div>
     </div>

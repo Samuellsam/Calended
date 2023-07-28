@@ -1,20 +1,17 @@
 import { HOLIDAY_DATA_PATH } from "@/constant/DataFile";
-import { Holiday } from "@/interfaces/Holiday";
+import { OffDay } from "@/interfaces/Holiday";
 import fsPromises from "fs/promises";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Response } from "../Response";
-import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message.js";
-
-interface SaveHolidayRequest {
-  holidays: Holiday[];
-}
+import { INTERNAL_SERVER_ERROR_MSG } from "@/interfaces/Message";
+import { v4 as uuid } from "uuid";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Response>
 ) {
   if (req.method === "POST") {
-    let newHolidays: Holiday[] = [];
+    let newHolidays: OffDay[] = [];
 
     const existingHolidays: string = await fsPromises.readFile(
       HOLIDAY_DATA_PATH,
@@ -22,11 +19,17 @@ export default async function handler(
     );
 
     if (existingHolidays)
-      newHolidays = JSON.parse(existingHolidays) as Holiday[];
+      newHolidays = JSON.parse(existingHolidays) as OffDay[];
 
-    const { holidays }: SaveHolidayRequest = req.body;
+    const holiday: OffDay = {
+      id: uuid(),
+      name: req.body["name"],
+      from: req.body["startDate"],
+      to: req.body["endDate"],
+      type: req.body["offDayType"],
+    };
 
-    newHolidays = newHolidays.concat(holidays);
+    newHolidays = newHolidays.concat(holiday);
 
     try {
       await fsPromises.writeFile(

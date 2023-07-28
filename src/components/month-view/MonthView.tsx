@@ -6,35 +6,48 @@ import { MonthEnum } from "@/enums/MonthEnum";
 import { getMonthEnumKeyByValue } from "@/util/EnumUtil";
 import { ReactNode, useEffect, useState } from "react";
 import { DayModel } from "../Calendar";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const MonthView: React.FC<{
   year: number;
   month: MonthEnum;
+  syncCount: number;
 }> = (props) => {
   const [monthCalendar, setMonthCalendar] = useState([] as DayModel[]);
 
   useEffect(() => {
     (async () => {
-      setMonthCalendar((await getMonthCalendar(props.month, props.year)) ?? []);
+      setMonthCalendar(
+        (await getMonthCalendar(props.month, props.year, false)) ?? []
+      );
     })();
   }, [props.month, props.year]);
 
-  const generateDayCalendarItem = () => {
-    const dayCalendarItem: ReactNode[] = monthCalendar.map((dayModel, idx) => {
-      return (
-        <DayView
-          key={idx}
-          date={moment(dayModel.date)}
-          holidays={dayModel.holidays}
-          month={props.month as MonthEnum}
-          wfhTeam={dayModel.wfhTeam}
-        />
-      );
-    });
+  useEffect(() => {
+    (async () => {
+      if (props.syncCount > 0) {
+        const temp = [
+          ...((await getMonthCalendar(props.month, props.year, true)) ?? []),
+        ];
+        setMonthCalendar(temp);
+      }
+    })();
+  }, [props.syncCount]);
 
+  const generateDayCalendarItem = () => {
     return (
       <div className="day-view-container flex flex-row flex-wrap justify-start mx-auto">
-        {dayCalendarItem}
+        {monthCalendar.map((dayModel, idx) => {
+          return (
+            <DayView
+              key={props.syncCount + idx}
+              date={moment(dayModel.date)}
+              holidays={dayModel.holidays}
+              month={props.month as MonthEnum}
+              wfhTeam={dayModel.wfhTeam}
+            />
+          );
+        })}
       </div>
     );
   };
