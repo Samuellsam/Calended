@@ -1,5 +1,5 @@
 import moment, { Moment } from "moment";
-import { getHolidaysByDate } from "./HolidayService";
+import { getHolidays, getHolidaysByDate } from "./HolidayService";
 import { DayModel } from "@/components/Calendar";
 import {
   firstDayOfMonth,
@@ -38,6 +38,8 @@ export const initializeFullYear = async () => {
   const baseWfhDate: BaseDate = await getBaseDate();
   const baseDateTeam = getTeamById(teams, baseWfhDate.wfhTeamId);
 
+  const holidays = await getHolidays();
+
   if (baseDateTeam === undefined) return;
 
   if (yearlyDayModel.length != 0) return yearlyDayModel;
@@ -50,7 +52,7 @@ export const initializeFullYear = async () => {
     if (currDate.isSameOrAfter(firstDayOfYear(year))) {
       yearlyDayModel.push({
         date: moment(currDate),
-        holidays: getHolidaysByDate(currDate),
+        holidays: getHolidaysByDate(holidays, currDate),
         wfhTeam: undefined,
       });
     }
@@ -65,7 +67,7 @@ export const initializeFullYear = async () => {
   while (currDate.isBefore(lastDayOfYear(year))) {
     let currDayModel: DayModel = {
       date: moment(currDate),
-      holidays: getHolidaysByDate(currDate),
+      holidays: getHolidaysByDate(holidays, currDate),
       wfhTeam: undefined,
     };
 

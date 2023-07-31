@@ -1,1 +1,142 @@
-[{"from":"01-01-2023","to":"01-01-2023","name":"Tahun Baru 2023 Masehi","type":0},{"from":"22-01-2023","to":"22-01-2023","name":"Tahun Baru Imlek 2574 Kongzili","type":0},{"from":"18-02-2023","to":"18-02-2023","name":"Isra Mikraj Nabi Muhammad SAW","type":0},{"from":"22-03-2023","to":"22-03-2023","name":"Hari Suci Nyepi Tahun Baru Saka 1945","type":0},{"from":"07-04-2023","to":"07-04-2023","name":"Wafat Isa Al Masih","type":0},{"from":"22-04-2023","to":"23-04-2023","name":"Hari Raya Idul Fitri 1444 Hijriah","type":0},{"from":"01-05-2023","to":"01-05-2023","name":"Hari Buruh Internasional","type":0},{"from":"18-05-2023","to":"18-05-2023","name":"Kenaikan Isa Al Masih","type":0},{"from":"01-06-2023","to":"01-06-2023","name":"Hari Lahir Pancasila","type":0},{"from":"04-06-2023","to":"04-06-2023","name":"Hari Raya Waisak 2567 BE","type":0},{"from":"29-06-2023","to":"29-06-2023","name":"Hari Raya Idul Adha 1444 Hijriah","type":0},{"from":"19-07-2023","to":"19-07-2023","name":"Tahun Baru Islam 14445 Hijriah","type":0},{"from":"17-08-2023","to":"17-08-2023","name":"Hari Kemerdekaan Republik Indonesia","type":0},{"from":"28-09-2023","to":"28-09-2023","name":"Maulid Nabi Muhammad SAW","type":0},{"from":"25-12-2023","to":"25-12-2023","name":"Hari Raya Natal","type":0},{"from":"23-01-2023","to":"23-01-2023","name":"Tahun Baru Imlek 2574 Kongzili","type":1},{"from":"23-03-2023","to":"23-03-2023","name":"Hari Suci Nyepi Tahun Baru Saka 1945","type":1},{"from":"19-04-2023","to":"25-04-2023","name":"Hari Raya Idul Fitri 1444 Hijriah","type":1},{"from":"02-06-2023","to":"02-06-2023","name":"Hari Raya Waisak","type":1},{"from":"26-12-2023","to":"26-12-2023","name":"Hari Raya Natal","type":1}]
+[
+  {
+    "id": "25fe5a9d-3738-43b3-ae03-08e633d248e8",
+    "from": "2023-01-01",
+    "to": "2023-01-01",
+    "name": "Tahun Baru 2023 Masehi",
+    "type": 0
+  },
+  {
+    "id": "cbc23883-4acb-4945-becb-769f0aa8c917",
+    "from": "2023-01-22",
+    "to": "2023-01-22",
+    "name": "Tahun Baru Imlek 2574 Kongzili",
+    "type": 0
+  },
+  {
+    "id": "147ec05b-ee11-44fa-9716-8bdcc569a8fe",
+    "from": "2023-02-18",
+    "to": "2023-02-18",
+    "name": "Isra Mikraj Nabi Muhammad SAW",
+    "type": 0
+  },
+  {
+    "id": "2831f722-b0c5-4154-a141-93d8b9e96ead",
+    "from": "2023-03-22",
+    "to": "2023-03-22",
+    "name": "Hari Suci Nyepi Tahun Baru Saka 1945",
+    "type": 0
+  },
+  {
+    "id": "e8699e5a-77e9-48a7-907f-ada8620a4909",
+    "from": "2023-04-07",
+    "to": "2023-04-07",
+    "name": "Wafat Isa Al Masih",
+    "type": 0
+  },
+  {
+    "id": "79411696-f857-4b47-b42a-1ce1cf92b425",
+    "from": "2023-04-22",
+    "to": "2023-04-23",
+    "name": "Hari Raya Idul Fitri 1444 Hijriah",
+    "type": 0
+  },
+  {
+    "id": "cf6e8d9f-9d7b-4c9a-981e-c0560a5f588c",
+    "from": "2023-05-01",
+    "to": "2023-05-01",
+    "name": "Hari Buruh Internasional",
+    "type": 0
+  },
+  {
+    "id": "b3466d7b-5c57-459d-8f3f-d66165d2c431",
+    "from": "2023-05-18",
+    "to": "2023-05-18",
+    "name": "Kenaikan Isa Al Masih",
+    "type": 0
+  },
+  {
+    "id": "ebd3c463-8294-4fe7-bfb9-4ba5dab40947",
+    "from": "2023-06-01",
+    "to": "2023-06-01",
+    "name": "Hari Lahir Pancasila",
+    "type": 0
+  },
+  {
+    "id": "fb2851cf-ae0b-4200-8e61-da9977edf663",
+    "from": "2023-06-04",
+    "to": "2023-06-04",
+    "name": "Hari Raya Waisak 2567 BE",
+    "type": 0
+  },
+  {
+    "id": "ce0718b2-f153-4a96-869c-25fc263230f0",
+    "from": "2023-06-28",
+    "to": "2023-06-30",
+    "name": "Hari Raya Idul Adha 1444 Hijriah",
+    "type": 0
+  },
+  {
+    "id": "e8549147-1fc3-4772-9a95-71eacc557b37",
+    "from": "2023-07-19",
+    "to": "2023-07-19",
+    "name": "Tahun Baru Islam 14445 Hijriah",
+    "type": 0
+  },
+  {
+    "id": "37bf1501-55fe-40c8-bcf9-57afb26c50e1",
+    "from": "2023-08-17",
+    "to": "2023-08-17",
+    "name": "Hari Kemerdekaan Republik Indonesia",
+    "type": 0
+  },
+  {
+    "id": "2659dd32-468a-4452-8b08-ccb2d9f41678",
+    "from": "2023-09-28",
+    "to": "2023-09-28",
+    "name": "Maulid Nabi Muhammad SAW",
+    "type": 0
+  },
+  {
+    "id": "c800cd97-6eca-4025-b350-9664e12929e3",
+    "from": "2023-12-25",
+    "to": "2023-12-25",
+    "name": "Hari Raya Natal",
+    "type": 0
+  },
+  {
+    "id": "928fd659-5ffd-4142-844b-663c7f8db61f",
+    "from": "2023-01-23",
+    "to": "2023-01-23",
+    "name": "Tahun Baru Imlek 2574 Kongzili",
+    "type": 1
+  },
+  {
+    "id": "9b416e5d-230a-4954-8e21-f743029d0850",
+    "from": "2023-03-23",
+    "to": "2023-03-23",
+    "name": "Hari Suci Nyepi Tahun Baru Saka 1945",
+    "type": 1
+  },
+  {
+    "id": "bd0c789a-a65a-458c-b775-7652d0c250d4",
+    "from": "2023-04-19",
+    "to": "2023-04-25",
+    "name": "Hari Raya Idul Fitri 1444 Hijriah",
+    "type": 1
+  },
+  {
+    "id": "63855349-179f-4b26-935b-12496b6dba32",
+    "from": "2023-06-02",
+    "to": "2023-06-02",
+    "name": "Hari Raya Waisak",
+    "type": 1
+  },
+  {
+    "id": "0a3174da-9706-489f-87b9-56f2cd8e9c93",
+    "from": "2023-12-26",
+    "to": "2023-12-26",
+    "name": "Hari Raya Natal",
+    "type": 1
+  }
+]

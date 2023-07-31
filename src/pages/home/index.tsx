@@ -29,10 +29,10 @@ const HomePage: React.FC<{}> = () => {
         onSyncView={syncView}
         calendarView={calendarView}
       />
-      {/* <div>
+      <div>
         <Logo />
         <Calendar calendarView={calendarView} syncCount={syncCount} />
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const IndexTestPage: React.FC<{}> = () => {
   const [data, setData] = useState<number[]>([0]);
