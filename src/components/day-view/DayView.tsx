@@ -55,7 +55,8 @@ const DayView: React.FC<{
         background: isWorkday ? props.wfhTeam?.color : undefined,
       }}
     >
-      {isDateSame(props.date, today()) && <TodaySign />}
+      {isDateSame(props.date, today()) &&
+        isDateInMonth(props.date, props.month) && <TodaySign />}
       <p className="font-bold m-3">{props.date.date()}</p>
       {!isOffDay && props.wfhTeam && <WfoCover wfhTeam={props.wfhTeam} />}
     </div>
